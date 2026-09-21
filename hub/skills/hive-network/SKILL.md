@@ -1,16 +1,16 @@
 ---
 name: hive-network
-description: Use a public Hive Hub organization seed on your own device, coordinate scoped work with your existing AI, and prepare reviewed contributions for the network. Discover real seed packages, verify their contents, plan native RAPP Work setup, work a ready task, and share only owner-approved public artifacts.
+description: Use a public RAPP Hive Hub organization seed on your own device, coordinate scoped work with your existing AI, and prepare reviewed contributions for the network. Discover real seed packages, verify their contents, plan native RAPP Work setup, work a ready task, and share only owner-approved public artifacts.
 license: MIT
 compatibility: Any AI can read this complete file. Discovery requires web access; byte verification requires hashing tools; local setup requires filesystem tools and the exact trusted RAPP Work SDK. Browser-only AIs must not claim local setup or publication.
 metadata:
-  version: "1.0.0"
-  author: "Hive Hub contributors"
-  source: "https://github.com/kody-w/hive-hub"
-  public-entry: "https://kody-w.github.io/hive-hub/hub/"
+  version: "1.0.1"
+  author: "RAPP Hive Hub contributors"
+  source: "https://github.com/kody-w/rapp-hive-hub"
+  public-entry: "https://kody-w.github.io/rapp-hive-hub/hub/"
 ---
 
-# Use the Hive network with the AI you already have
+# Use RAPP Hive Hub with the AI you already have
 
 This file is the complete workflow. It adds no server, account, background
 process, replacement chat, or authority. Use your host's existing tools and
@@ -38,14 +38,14 @@ the experience into a glossary or pretend that reading a seed created a company.
 
 ## Network entry points
 
-- Human catalog: https://kody-w.github.io/hive-hub/hub/#organizations
-- Organization seed index: https://kody-w.github.io/hive-hub/api/hive-hub/v1/organization-seeds.json
-- General index: https://kody-w.github.io/hive-hub/api/hive-hub/v1/index.json
-- Public dialbook: https://kody-w.github.io/hive-hub/api/hive-hub/v1/dialbook.json
-- AI instructions: https://kody-w.github.io/hive-hub/llms.txt
-- Join-card interpretation: https://kody-w.github.io/hive-hub/hub/join/ai.json
-- Public contribution repository: https://github.com/kody-w/hive-hub
-- This standalone file: https://kody-w.github.io/hive-hub/hub/skills/hive-network/SKILL.md
+- Human catalog: https://kody-w.github.io/rapp-hive-hub/hub/#organizations
+- Organization seed index: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/organization-seeds.json
+- General index: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/index.json
+- Public dialbook: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/dialbook.json
+- AI instructions: https://kody-w.github.io/rapp-hive-hub/llms.txt
+- Join-card interpretation: https://kody-w.github.io/rapp-hive-hub/hub/join/ai.json
+- Public contribution repository: https://github.com/kody-w/rapp-hive-hub
+- This standalone file: https://kody-w.github.io/rapp-hive-hub/hub/skills/hive-network/SKILL.md
 
 The current seed collection contains the One-Person Conglomerate, Enterprise
 Transformation Firm, Product Launch Company, Open-Source Infrastructure
@@ -54,9 +54,11 @@ Company, Public-Source Intelligence Bureau, Turnaround Firm, and Federation
 Prime Contractor. Fetch the index for actual available packages and exact
 descriptors; these names are not authorization or a permanent exhaustive list.
 
-The Hub is protocol-neutral. These organization examples use `rapp-work/1`
-with the `rapp-work-sdk/1` workspace profile. Do not impose that protocol on an
-unrelated Hive or silently substitute an adapter.
+RAPP Hive Hub is the RAPP-focused distribution of the protocol-neutral Hive
+Hub. Its organization starters use `rapp-work/1` with the `rapp-work-sdk/1`
+workspace profile and pinned RAPP/1 dependencies. The inherited public
+laboratory is a separate generic subscription example, not a RAPP organization.
+Do not impose RAPP on an unrelated Hive or silently substitute an adapter.
 
 ## 1. Establish what this host can actually do
 

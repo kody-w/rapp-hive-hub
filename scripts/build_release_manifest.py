@@ -92,7 +92,7 @@ def build_manifest() -> dict[str, object]:
             },
             "static": {
                 "api_contract_version": "1.0.0",
-                "package": "hive-hub-static-web",
+                "package": "rapp-hive-hub-static-web",
                 "version": VERSION,
             },
         },

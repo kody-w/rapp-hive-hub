@@ -28,6 +28,9 @@ import { loadPublicInputs } from "../scripts/lib/public-inputs.mjs";
 
 const repository = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = path.join(repository, "public-manifest.json");
+const publicManifest = JSON.parse(await readFile(manifestPath, "utf8"));
+const siteBaseUrl = publicManifest.build.siteBaseUrl;
+const sitePath = new URL(siteBaseUrl + "/").pathname;
 const work = path.join(repository, "tests/.work/node-test");
 const buildA = path.join(work, "build-a");
 const buildB = path.join(work, "build-b");
@@ -121,6 +124,44 @@ test("generated surface passes links, hashes, security, and accessibility gates"
   assert.equal(result.inputCount, manifest.entries.length);
   assert.ok(result.immutableObjectCount >= 9);
   assert.equal(result.qrCount, 22);
+});
+
+test("RAPP distribution leads with a real seed and publishes its own entry points", async () => {
+  assert.equal(siteBaseUrl, "https://kody-w.github.io/rapp-hive-hub");
+  assert.equal(
+    publicManifest.build.rawBaseUrl,
+    "https://raw.githubusercontent.com/kody-w/rapp-hive-hub/main"
+  );
+  const home = await readFile(path.join(buildA, "hub/index.html"), "utf8");
+  const hero = home.slice(home.indexOf('<section class="hero"'), home.indexOf('id="organizations"'));
+  const featured = resultA.cards.find((card) => card.cardId === "seed-one-person-conglomerate-public");
+  assert.ok(featured);
+  const card = JSON.parse(await readFile(path.join(buildA, featured.descriptor.path), "utf8"));
+  assert.match(home, /<title>RAPP Hive Hub<\/title>/);
+  assert.match(hero, /Your AI\. Your team\./);
+  assert.ok(hero.includes(card.chant.value.replaceAll("-", " ").toUpperCase()));
+  assert.ok(hero.includes(featured.qrUrl));
+  assert.ok(hero.includes(`--from ${siteBaseUrl}/`));
+  assert.doesNotMatch(hero, /Try the public laboratory/);
+  assert.match(home, /id="rapp-workflow"/);
+  assert.match(home, /Optional upstream example · not a RAPP organization/);
+
+  for (const page of ["index.html", "hub/join/index.html", "hub/seeds/one-person-conglomerate/index.html"]) {
+    assert.match(await readFile(path.join(buildA, page), "utf8"), /RAPP Hive Hub/);
+  }
+  for (const published of resultA.cards) {
+    assert.ok(published.qrUrl.startsWith(siteBaseUrl + "/hub/join/#v1."));
+    assert.ok(published.descriptor.url.startsWith(siteBaseUrl + "/api/hive-hub/v1/"));
+  }
+  const llms = await readFile(path.join(buildA, "llms.txt"), "utf8");
+  assert.match(llms, /^# RAPP Hive Hub\n/);
+  assert.match(llms, /## RAPP-first workflow/);
+  const skill = await readFile(path.join(buildA, "hub/skills/hive-network/SKILL.md"), "utf8");
+  assert.ok(skill.includes(`Human catalog: ${siteBaseUrl}/hub/#organizations`));
+  assert.match(skill, /Public contribution repository: https:\/\/github\.com\/kody-w\/rapp-hive-hub/);
+  assert.match(skill, /29ead23b21645f8d7682ee00414930ffa9ce0ca6/);
+  assert.match(skill, /591e014ad39e223b00ab343ae26e5d9a867ebeee/);
+  assert.equal(resultA.hashesDocument.build.privateBooksInspected, 0);
 });
 
 test("published camera cards use their record's canonical locator and keep legacy cards separate", async () => {
@@ -225,11 +266,16 @@ test("hive-hub-chant/1 is exact, human-friendly, and protocol-neutral", () => {
   assert.throws(() => normalizeChant("hive-hub-public-lab"));
 });
 
-test("public laboratory preserves prior receipts and appends the camera-card correction", async () => {
+test("RAPP publication preserves all upstream receipts and appends its own successor", async () => {
   const index = JSON.parse(
     await readFile(path.join(buildA, "api/hive-hub/v1/receipts/index.json"), "utf8")
   );
-  assert.equal(index.receipts.length, 3);
+  assert.equal(index.receipts.length, 4);
+  assert.deepEqual(index.receipts.slice(0, 3).map((receipt) => receipt.ref), [
+    "sha256:49c0471db5f908478a18dbbcbf4363b0b93fc3722757a73378d14ddaea00f215",
+    "sha256:7284d9ad13fec9c4fce9de793fe549d71f3bdd9303fd74c0c226da78de22d609",
+    "sha256:333b225ec27b92a1969645436742ebf81adc4debc40fb1013b1647a141935fd3"
+  ]);
   const receipt = JSON.parse(
     await readFile(path.join(buildA, index.receipts[0].path), "utf8")
   );
@@ -239,14 +285,22 @@ test("public laboratory preserves prior receipts and appends the camera-card cor
     await readFile(path.join(buildA, index.receipts[1].path), "utf8")
   );
   assert.deepEqual(migration.previous, index.receipts[0]);
-  assert.deepEqual(migration.subject, resultA.records[0].descriptor);
+  assert.equal(migration.subject.ref, "sha256:dae8e20947d18f243a044f87baff7547f5004c2b1635dd6f03fdaf2312d31925");
   assert.notDeepEqual(receipt.subject, migration.subject);
   const correction = JSON.parse(
     await readFile(path.join(buildA, index.receipts[2].path), "utf8")
   );
   assert.deepEqual(correction.previous, index.receipts[1]);
   assert.deepEqual(correction.subject, migration.subject);
-  assert.deepEqual(correction.card, resultA.cards[0].descriptor);
+  assert.equal(correction.card.ref, "sha256:a098e8505dd4129f25ca74ef6aeca36f1b84943729d09db53ee2d995e360ce9e");
+  const publication = JSON.parse(
+    await readFile(path.join(buildA, index.receipts[3].path), "utf8")
+  );
+  assert.deepEqual(publication.previous, index.receipts[2]);
+  assert.equal(publication.event, "publish-rapp-distribution");
+  assert.equal(publication.operation.sourceCommit, "1db94d2b1b5d9d4fb6f9d2865c3a2fe543875c31");
+  const featured = resultA.records.find((record) => record.document.aliases.includes("one-person-conglomerate"));
+  assert.deepEqual(publication.subject, featured.descriptor);
   assert.notDeepEqual(correction.card, migration.card);
 });
 
@@ -437,7 +491,7 @@ test("generated join script executes the real core camera-card path", async () =
     }
   });
   const location = new URL(
-    `https://kody-w.github.io/hive-hub/hub/join/${resultA.cards[0].cameraQrFragment}`
+    `${siteBaseUrl}/hub/join/${resultA.cards[0].cameraQrFragment}`
   );
   const context = {
     TextDecoder,
@@ -518,7 +572,7 @@ test("organization join verifies the exact package and refuses a different seed"
       sha256: sha256Bytes(cardBytes),
       v: 1
     };
-    const location = new URL("https://kody-w.github.io/hive-hub/hub/join/");
+    const location = new URL(`${siteBaseUrl}/hub/join/`);
     location.hash = "#v1." + Buffer.from(JSON.stringify(envelope)).toString("base64url");
     const elements = new Map([
       "status", "failure", "machine-readable", "machine-section", "verified-title",
@@ -548,10 +602,10 @@ test("organization join verifies the exact package and refuses a different seed"
         assert.equal(cleared, true, "The locator must leave history before fetching");
         const parsed = new URL(url);
         assert.equal(parsed.origin, location.origin);
-        assert.ok(parsed.pathname.startsWith("/hive-hub/"));
+        assert.ok(parsed.pathname.startsWith(sitePath));
         const bytes = String(url) === selected.descriptor.url
           ? cardBytes
-          : await readFile(path.join(buildA, parsed.pathname.slice("/hive-hub/".length)));
+          : await readFile(path.join(buildA, parsed.pathname.slice(sitePath.length)));
         return {
           ok: true,
           arrayBuffer: async () => bytes.buffer.slice(

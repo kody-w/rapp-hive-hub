@@ -12,11 +12,13 @@ import {
   isMain,
   listPublicFiles,
   parseCliArgs,
+  publicUrl,
   readPublicFile,
   sha256Bytes
 } from "./lib/canonical.mjs";
 import { loadPublicInputs } from "./lib/public-inputs.mjs";
 import { assertCoreIdentity } from "./lib/core-record.mjs";
+import { UPSTREAM_SITE_URL } from "./lib/distribution.mjs";
 
 function assert(condition, message) {
   if (!condition) {
@@ -76,7 +78,7 @@ function normalizeLinkedPath(sourcePath, link, manifest) {
   return resolved.endsWith("/") ? `${resolved}index.html` : resolved;
 }
 
-async function validateDescriptor(root, descriptor, files, manifest, label) {
+async function validateDescriptor(root, descriptor, files, manifest, label, historicalReferences) {
   assert(typeof descriptor.path === "string", `${label} descriptor has no path`);
   assert(typeof descriptor.ref === "string", `${label} descriptor has no ref`);
   assert(typeof descriptor.url === "string", `${label} descriptor has no URL`);
@@ -87,15 +89,17 @@ async function validateDescriptor(root, descriptor, files, manifest, label) {
     `${label} content reference does not match ${descriptor.path}`
   );
   assert(
-    pathFromInternalUrl(descriptor.url, manifest) === descriptor.path,
+    pathFromInternalUrl(descriptor.url, manifest) === descriptor.path ||
+      (historicalReferences.has(descriptor.ref) &&
+        descriptor.url === publicUrl(UPSTREAM_SITE_URL, descriptor.path)),
     `${label} URL does not match its path`
   );
 }
 
-async function inspectDescriptors(root, value, files, manifest, location = "$") {
+async function inspectDescriptors(root, value, files, manifest, location, historicalReferences) {
   if (Array.isArray(value)) {
     for (let index = 0; index < value.length; index += 1) {
-      await inspectDescriptors(root, value[index], files, manifest, `${location}[${index}]`);
+      await inspectDescriptors(root, value[index], files, manifest, `${location}[${index}]`, historicalReferences);
     }
     return;
   }
@@ -107,7 +111,7 @@ async function inspectDescriptors(root, value, files, manifest, location = "$") 
     typeof value.ref === "string" &&
     typeof value.url === "string"
   ) {
-    await validateDescriptor(root, value, files, manifest, location);
+    await validateDescriptor(root, value, files, manifest, location, historicalReferences);
   }
   if (
     typeof value.path === "string" &&
@@ -123,7 +127,7 @@ async function inspectDescriptors(root, value, files, manifest, location = "$") 
     );
   }
   for (const [key, child] of Object.entries(value)) {
-    await inspectDescriptors(root, child, files, manifest, `${location}.${key}`);
+    await inspectDescriptors(root, child, files, manifest, `${location}.${key}`, historicalReferences);
   }
 }
 
@@ -249,11 +253,14 @@ export async function checkStaticSurface({ root, manifestPath }) {
     assert(expected.sha256 === sha256Bytes(bytes), `Hash mismatch for ${filePath}`);
   }
 
+  const historicalReferences = new Set(loaded.entries
+    .filter((entry) => ["historical-object", "historical-receipt"].includes(entry.declaration.kind))
+    .map((entry) => `sha256:${entry.digest}`));
   const jsonDocuments = new Map();
   for (const filePath of fileList.filter((candidate) => candidate.endsWith(".json"))) {
     const parsed = await readJson(resolvedRoot, filePath);
     jsonDocuments.set(filePath, parsed.document);
-    await inspectDescriptors(resolvedRoot, parsed.document, files, manifest, filePath);
+    await inspectDescriptors(resolvedRoot, parsed.document, files, manifest, filePath, historicalReferences);
   }
 
   for (const filePath of fileList.filter((candidate) => candidate.endsWith(".html"))) {

@@ -33,6 +33,7 @@ import {
   renderLlmsText
 } from "./lib/render.mjs";
 import { createSchemas } from "./lib/schemas.mjs";
+import { UPSTREAM_SITE_URL } from "./lib/distribution.mjs";
 
 const REQUIRED_ENTRY_KINDS = new Set([
   "adapter",
@@ -480,7 +481,7 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
     const stored = await writer.write(outputPath, entry.bytes);
     assert(stored.digest === entry.digest, `${entry.path} historical receipt hash changed`);
     const object = contentObject("receipt", entry.declaration.id, {
-      descriptor: descriptorFor(outputPath, entry.digest, siteBaseUrl),
+      descriptor: descriptorFor(outputPath, entry.digest, UPSTREAM_SITE_URL),
       digest: entry.digest,
       document: entry.document
     });
@@ -503,6 +504,14 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
       outputPath = `${apiPath}/releases/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
     } else if (entry.document.schema === "hive-hub-declaration/1") {
       outputPath = `${apiPath}/declarations/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
+    } else if (["adapter-declaration", "conformance-contract", "protocol-declaration", "learning-bundle"].includes(entry.document.kind)) {
+      const category = {
+        "adapter-declaration": "adapters",
+        "conformance-contract": "conformance",
+        "protocol-declaration": "protocols",
+        "learning-bundle": "learning-bundles"
+      }[entry.document.kind];
+      outputPath = `${apiPath}/${category}/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
     } else {
       throw new Error(`${entry.path} is not a supported historical object`);
     }

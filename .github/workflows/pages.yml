@@ -1,4 +1,4 @@
-name: Verify and deploy static Hive Hub
+name: Verify and deploy RAPP Hive Hub
 
 on:
   pull_request:

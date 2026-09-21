@@ -1,18 +1,32 @@
-# Hive Hub
+# RAPP Hive Hub
 
-> Protocol-neutral, deterministic static discovery for humans and AI clients.
+> RAPP Work organization discovery and native setup planning for humans and any capable AI, built on the protocol-neutral Hive Hub core.
 
-Canonical Pages API index: https://kody-w.github.io/hive-hub/api/hive-hub/v1/index.json
-Raw Git API index: https://raw.githubusercontent.com/kody-w/hive-hub/main/api/hive-hub/v1/index.json
-Public dialbook: https://kody-w.github.io/hive-hub/api/hive-hub/v1/dialbook.json
-Ten RAPP Work organization seeds: https://kody-w.github.io/hive-hub/api/hive-hub/v1/organization-seeds.json
-Standalone global network skill: https://kody-w.github.io/hive-hub/hub/skills/hive-network/SKILL.md
-Machine join instructions: https://kody-w.github.io/hive-hub/hub/join/ai.json
-Integrated 0.1.1 release: https://kody-w.github.io/hive-hub/api/hive-hub/v1/releases/sha256/02/02615bbb5dec5eab91aed94c8cda4b995a81167fde8ab4dc3b789b51b64a28e0.json (sha256:02615bbb5dec5eab91aed94c8cda4b995a81167fde8ab4dc3b789b51b64a28e0)
-Core camera-AI join card: https://kody-w.github.io/hive-hub/api/hive-hub/v1/cards/core/sha256/3e/3eac4ec24f90e622440208ce1b5253c35491d09659838a5818f37be149ce5527.json (sha256:3eac4ec24f90e622440208ce1b5253c35491d09659838a5818f37be149ce5527)
-Legacy locked-skill compatibility card: https://kody-w.github.io/hive-hub/api/hive-hub/v1/cards/core/sha256/5d/5da9aa7c7112f54157343917f50f64e0b9441cd6f9ab1a4d2546be7d418bd794.json (sha256:5da9aa7c7112f54157343917f50f64e0b9441cd6f9ab1a4d2546be7d418bd794)
-Example immutable Dial Record: https://kody-w.github.io/hive-hub/api/hive-hub/v1/records/sha256/sha256-c0-ff/dae8e20947d18f243a044f87baff7547f5004c2b1635dd6f03fdaf2312d31925.json
-Example Dial Record fingerprint: sha256:dae8e20947d18f243a044f87baff7547f5004c2b1635dd6f03fdaf2312d31925
+Canonical Pages API index: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/index.json
+Raw Git API index: https://raw.githubusercontent.com/kody-w/rapp-hive-hub/main/api/hive-hub/v1/index.json
+Public dialbook: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/dialbook.json
+Ten RAPP Work organization seeds: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/organization-seeds.json
+Standalone global network skill: https://kody-w.github.io/rapp-hive-hub/hub/skills/hive-network/SKILL.md
+Machine join instructions: https://kody-w.github.io/rapp-hive-hub/hub/join/ai.json
+Inherited Hive Hub 0.1.1 implementation: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/releases/sha256/5c/5c7894abbbdcd9762d63ccdb7fbec5d86e70f168c6672b7a575addf745b96830.json (sha256:5c7894abbbdcd9762d63ccdb7fbec5d86e70f168c6672b7a575addf745b96830)
+Core camera-AI join card: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/cards/core/sha256/8b/8b4c67955461d1bd3a95a3202269172a15de4a7c367c5de84bd7d6f7e85bbd14.json (sha256:8b4c67955461d1bd3a95a3202269172a15de4a7c367c5de84bd7d6f7e85bbd14)
+Legacy locked-skill compatibility card: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/cards/core/sha256/5d/5da9aa7c7112f54157343917f50f64e0b9441cd6f9ab1a4d2546be7d418bd794.json (sha256:5da9aa7c7112f54157343917f50f64e0b9441cd6f9ab1a4d2546be7d418bd794)
+Example immutable Dial Record: https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/records/sha256/sha256-40-7f/7d40d43e78f710bc7d1f40a6133b05834bcc0baba02ce9e75ecd90afe86e7844.json
+Example Dial Record fingerprint: sha256:7d40d43e78f710bc7d1f40a6133b05834bcc0baba02ce9e75ecd90afe86e7844
+
+## RAPP-first workflow
+
+Start with the user's desired outcome, then the organization seed index and the standalone global skill above.
+Verify the seed's rapp-work/1 protocol, rapp-work-sdk/1 workspace profile, exact learning bundle, conformance contract, adapter, archive digest, and file inventory.
+Use only the exact locally trusted RAPP Work SDK and RAPP/1 dependencies pinned in the chosen seed.
+Choose an owner label and new local destination; review native scaffold plans and exact plan hashes before applying.
+Keep Organization state pointer-only, with team scopes and shared casework in separate native Workspaces.
+Starter-file copies, pointer registrations, task effects, and public contributions require their own explicit approvals.
+Downloaded code and instructions remain inert. A seed, QR, or local subscription is not an activated organization or running agent.
+The laboratory card above is an inherited generic subscription example, not a RAPP organization.
+Do not infer compatibility or authority from RAPP branding. Existing RAPP, RAPPID, Payphone, and historical Hub adapters retain their declared boundaries.
+Public contribution repository: https://github.com/kody-w/rapp-hive-hub
+Generic upstream: https://github.com/kody-w/hive-hub
 
 ## Required interpretation
 

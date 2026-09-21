@@ -1,4 +1,4 @@
-name: Hive Hub release matrix
+name: RAPP Hive Hub conformance matrix
 
 on:
   pull_request:
