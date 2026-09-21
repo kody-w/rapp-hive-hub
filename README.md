@@ -83,8 +83,20 @@ npm run build:site
 Author public inputs and templates, not generated `hub/` or `api/` files.
 After intentional source changes, run `npm run sync:release`, `npm run build`,
 and `python3 -B scripts/build_release_manifest.py`, then verify. Review generated
-changes and immutable receipts before committing. Pages deploys only the isolated
-`site/` artifact after verification on `main`.
+changes and immutable receipts before committing.
+
+Pages serves the root of the separate `gh-pages` branch, containing only the
+verified `site/` artifact. The source lives on `main`. Rebuild and verify before
+publishing an updated artifact; never publish the repository root as the site.
+The artifact commit records its source commit and public hash-manifest digest.
+
+The existing publisher login can publish source and configure Pages but lacks
+GitHub's `workflow` scope. CI and automatic deployment definitions are therefore
+preserved under `.github/workflow-templates/`, **not active workflows**. To enable
+automation later, explicitly authorize workflow publication, move the templates
+to `.github/workflows/`, and switch the Pages build type from branch deployment
+to GitHub Actions. Until then, run the verification commands above before each
+manual publication.
 
 The Python module and CLI keep their upstream `hive_hub` / `hive-hub` names.
 This repository does **not** publish a competing Python package or publish

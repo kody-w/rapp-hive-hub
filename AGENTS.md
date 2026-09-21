@@ -8,6 +8,9 @@ protocol identifiers. Do not rename immutable upstream seed dependencies or
 claim their source repositories belong to this distribution.
 
 Publish this site's generated output only to `kody-w/rapp-hive-hub`.
+Source is on `main`; Pages serves only the isolated artifact on `gh-pages`.
+CI templates under `.github/workflow-templates` are inactive until workflow
+publication is explicitly authorized and Pages is switched to Actions.
 The Python distribution remains the upstream `hive-hub` implementation;
 this repository must not publish it to PyPI.
 
