@@ -22,7 +22,7 @@ claim to create local files or submit changes without those capabilities.
 | The Public-Source Intelligence Bureau | [Open](https://kody-w.github.io/hive-hub/hub/seeds/public-source-intelligence-bureau/) |
 | The Turnaround Firm | [Open](https://kody-w.github.io/hive-hub/hub/seeds/turnaround-firm/) |
 | The Federation Prime Contractor | [Open](https://kody-w.github.io/hive-hub/hub/seeds/federation-prime-contractor/) |
-| The AI Video Studio | [Open](https://kody-w.github.io/hive-hub/hub/seeds/ai-video-studio/) |
+| The AI Video Studio | [Open](https://kody-w.github.io/rapp-hive-hub/hub/seeds/ai-video-studio/) |
 
 ## Package contents
 
