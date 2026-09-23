@@ -29,7 +29,7 @@ export function renderHomeHtml({ card, generatedAt, record, qrPath, seedCards = 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     ${SECURITY_META}
-    <meta name="description" content="Find your RAPP Work organization. Ten verified starters with scoped teams, real artifacts, and native RAPP/1 plans for the AI you already use.">
+    <meta name="description" content="Find your RAPP Work organization. Eleven verified starters with scoped teams, real artifacts, and native RAPP/1 plans for the AI you already use.">
     <title>RAPP Hive Hub</title>
     <link rel="stylesheet" href="./assets/hub.css">
     <link rel="alternate" type="text/plain" href="../llms.txt" title="RAPP Hive Hub instructions for AI clients">
@@ -1097,7 +1097,7 @@ export function renderLlmsText({
 Canonical Pages API index: ${apiIndexUrl}
 Raw Git API index: ${rawIndexUrl}
 Public dialbook: ${dialbookUrl}
-Ten RAPP Work organization seeds: ${organizationSeedsUrl}
+Eleven RAPP Work organization seeds: ${organizationSeedsUrl}
 Standalone global network skill: ${globalSkillUrl}
 Machine join instructions: ${joinAiUrl}
 Inherited Hive Hub 0.1.1 implementation: ${release.url} (${release.ref})
@@ -1143,7 +1143,7 @@ Generic upstream: https://github.com/kody-w/hive-hub
 - hashes.json validates generated public files.
 - offline-seed.json carries immutable essentials for offline inspection.
 - receipts/index.json names an append-only content-addressed receipt chain.
-- organization-seeds.json lists ten real downloadable organization starter packages with team workspaces, case inputs, task dependencies, and original artifacts.
+- organization-seeds.json lists eleven real downloadable organization starter packages with team workspaces, case inputs, task dependencies, and original artifacts.
 - Seed JSON and ZIP contents are inert. A seed is not an activated organization or running agent. Initialize only with the exact locally trusted RAPP Work SDK and owner-approved native plans.
 - The hive-network SKILL.md is a complete host-operated workflow for discovery, local work, and separately approved public contributions. It grants no authority and cannot add capabilities to a browser-only AI.
 
