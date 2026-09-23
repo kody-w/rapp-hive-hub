@@ -154,7 +154,7 @@ ${seedCards.map(({ seed, card: seedCard }) => `
 `;
 }
 
-export function renderOrganizationSeedHtml({ seed, card, generatedAt }) {
+export function renderOrganizationSeedHtml({ seed, card, boot, hatcher, generatedAt }) {
   const teams = seed.workspaces.filter((workspace) => workspace.id !== "casework");
   const starterFiles = seed.files.filter((file) => file.path.includes("/starter/"));
   return `<!doctype html>
@@ -232,6 +232,18 @@ export function renderOrganizationSeedHtml({ seed, card, generatedAt }) {
           <li>Claim a ready task with a capable authorized AI host, produce the requested output, and attach actual acceptance evidence.</li>
         </ol>
         <p>No private membership, signing, spending, external communication, publication, or federation activation is granted by this seed.</p>
+      </section>
+      <section aria-labelledby="boot-title">
+        <h2 id="boot-title">Or boot it in a RAPP Brainstem.</h2>
+        <p>This seed also ships as a boot Egg: a RAPP/1 organism Egg holding the exact seed record, a soul written from it, and the generic SeedRunner organ. A standard RAPP Brainstem hatches it and runs the same seed flow for you, with the same pinned SDK and the same owner approvals.</p>
+        <ol class="steps">
+          <li>Install the standard Brainstem: <code>curl -fsSL https://kody-w.github.io/rapp-installer/install.sh | bash</code></li>
+          <li>Download the <a href="${escapeHtml(boot.egg.url)}" download="${escapeHtml(seed.slug)}.boot.egg">boot Egg</a> (SHA-256 <code>${escapeHtml(boot.egg.sha256)}</code>) and the <a href="${escapeHtml(hatcher.url)}" download="hatch_seed.py">hatcher</a> (SHA-256 <code>${escapeHtml(hatcher.sha256)}</code>). Check both hashes before running anything.</li>
+          <li>Plan the hatch: <code>python3 hatch_seed.py --egg ${escapeHtml(seed.slug)}.boot.egg</code>. It verifies the Egg with the pinned RAPP/1 reference and prints every effect, how to reverse it, and a plan digest. Nothing changes yet.</li>
+          <li>Hatch with that exact digest: <code>python3 hatch_seed.py --egg ${escapeHtml(seed.slug)}.boot.egg --apply &lt;plan_digest&gt;</code>. Your Brainstem gets its own instance identity, grown from Egg <code>${escapeHtml(boot.egg.address.slice(0, 16))}…</code>, and the SeedRunner organ.</li>
+          <li>Ask your Brainstem to run the seed. SeedRunner verifies it, plans the Organization and its Workspaces, and shows you an activation digest; nothing is created until you approve that exact digest.</li>
+        </ol>
+        <p class="muted">The boot Egg grants no authority and runs nothing by itself. <a href="${escapeHtml(boot.descriptor.url)}">Boot record JSON</a>.</p>
       </section>
     </main>
     <footer><p>Reproducibility/build epoch: <time datetime="${escapeHtml(generatedAt)}">${escapeHtml(generatedAt)}</time>. This fixed value is not a verification or publication time. <a href="../../#organizations">Back to all organization seeds</a>.</p></footer>
