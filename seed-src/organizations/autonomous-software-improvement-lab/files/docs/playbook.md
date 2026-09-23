@@ -199,7 +199,10 @@ loop:
 - **Stop.** The owner says stop, or runs `$K stop --reason "..." --apply`, or
   creates the file `STOP` in the state directory. The orchestrator checks
   before every step, starts nothing new, never integrates unverified work, and
-  leaves running agents' work on their branches. Nothing is lost.
+  leaves running agents' work on their branches. Nothing is lost. While STOP
+  exists, the kit refuses `plan --apply` and `worktrees --apply`, so no new
+  strategist or integrator can be set up by mistake; recording work that is
+  already verified still works.
 - **Resume.** `$K resume --apply` removes STOP. If the latest generation was
   interrupted, it also archives that generation (rule R5): the generation
   directory becomes `gG-interrupted-K`, worktrees are moved aside and branches

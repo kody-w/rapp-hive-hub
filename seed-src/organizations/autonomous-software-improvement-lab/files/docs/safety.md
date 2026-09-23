@@ -123,8 +123,9 @@ The kit enforces: plan-first changes (`--apply`), writes only inside the state
 directory, an allowlist of local git commands, no branch deletion, reserved
 slug refusal, fresh worktrees from the integration head, throwaway homes and
 cleared environment prefixes for verify commands, lower CPU priority and
-timeouts, protected-path audits, and the record gate (verified at the exact
-commit, audit clean, already fast-forwarded).
+timeouts, protected-path audits, STOP (no `plan` or `worktrees` is applied
+while it exists), and the record gate (verified at the exact commit, audit
+clean, already fast-forwarded).
 
 The AI host must enforce everything else: that agents stay in their
 worktrees, that the harness is used, that the live software and its ports are

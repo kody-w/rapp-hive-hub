@@ -91,7 +91,9 @@ Decision after re-running the tally:
 The other clusters go to the recurring-problems table. Suppose, again as an
 illustration, that generation 2 also finds `tests:write-real-home` with three
 strategists: the table then shows it in g1 and g2 with total support 6, and
-the owner might make hermetic tests the focus of generation 3.
+the owner might make hermetic tests the focus of generation 3. (In the practice
+case the hermetic fix lands before generation 1, so a real run should not
+report that key at all; the samples include it to show a minority finding.)
 
 **When nothing reaches a majority**, for example if the largest cluster has 4
 of 8, the tally reads: "No cluster reached a majority (5 of 8). The broadest

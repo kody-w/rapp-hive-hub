@@ -120,7 +120,8 @@ decision, verification and receipts, owner requests, recurring problems,
 kept branches, and how to try the integration branch or switch back.
 
 - Stop: tell the host, or `$K stop --reason "..." --apply`, or create the file
-  `STOP` in the state directory.
+  `STOP` in the state directory. While STOP exists, the kit refuses to plan a
+  generation or create worktrees.
 - Continue: `$K resume --apply`. If the host restarted and killed its agents,
   resume archives the interrupted generation so it is re-run from the current
   head and never counted.

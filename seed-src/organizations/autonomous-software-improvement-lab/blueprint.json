@@ -213,7 +213,7 @@
       "id": "generation-1-plan",
       "team": "strategy-library",
       "title": "Plan generation 1",
-      "instructions": "Run plan 1, review the eight lenses against the project's surfaces and the owner's focus, then apply it. Confirm that the same seed reproduces the same choice.",
+      "instructions": "Run plan 1, review the eight lenses against the project's surfaces and the owner's focus, then apply it. Confirm that the same seed reproduces the same choice by recomputing it with plan 1 --replace, without --apply.",
       "inputs": [
         "deliverables/strategy/pool-review.md",
         "deliverables/baseline/baseline-g0.json",
@@ -228,7 +228,7 @@
       ],
       "acceptance": [
         "Eight distinct lenses are planned from the recorded integration head.",
-        "Running plan 1 again without --apply prints the same eight lenses.",
+        "Recomputing with plan 1 --replace, without --apply, prints the same eight lenses and changes nothing.",
         "The majority threshold of 5 of 8 is recorded in the plan."
       ]
     },

@@ -464,6 +464,15 @@ def ensure_initialized(cfg: Config) -> dict[str, Any]:
     return read_json(marker)
 
 
+def refuse_if_stopped(cfg: Config, what: str) -> None:
+    """While STOP exists, nothing that sets up new agent work is applied."""
+    stop = cfg.state / "STOP"
+    if stop.exists():
+        reason = stop.read_text(encoding="utf-8", errors="replace").strip()
+        raise KitError(f"STOP is requested ({reason}): {what} would start new work. Record or "
+                       "finish what is in flight; run resume --apply to continue")
+
+
 def load_plan(cfg: Config, gen: int) -> dict[str, Any]:
     ensure_initialized(cfg)
     path = gen_dir(cfg, gen) / "plan.json"
@@ -779,6 +788,8 @@ def choose(pool: list[dict[str, Any]], cfg: Config, gen: int,
 def cmd_plan(cfg: Config, args: argparse.Namespace) -> int:
     ensure_initialized(cfg)
     gen = args.gen
+    if args.apply:
+        refuse_if_stopped(cfg, f"plan {gen}")
     folder = gen_dir(cfg, gen)
     plan_path = folder / "plan.json"
     if plan_path.is_file() and not args.replace:
@@ -879,6 +890,8 @@ def cmd_render(cfg: Config, args: argparse.Namespace) -> int:
 def cmd_worktrees(cfg: Config, args: argparse.Namespace) -> int:
     plan = load_plan(cfg, args.gen)
     gen = args.gen
+    if args.apply:
+        refuse_if_stopped(cfg, f"worktrees {gen}")
     folder = gen_dir(cfg, gen)
     head = integration_head(cfg)
     entries = []

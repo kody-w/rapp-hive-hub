@@ -15,7 +15,7 @@ Every flaw below was reproduced against the shipped files before publication.
 | 3 | Contradictory defaults: `add` refuses a duplicate link, but `import` accepts duplicates by default, so importing the same export twice doubles the shelf | `Shelf.add` vs `Shelf.import_file` | defaults audit, invariants, artifact conformance, configuration matrix |
 | 4 | Non-atomic, unlocked writes: `save` truncates the file in place, and every command does load → change → save, so two concurrent writers lose updates and reuse ids, and an interrupted write leaves an unreadable shelf | `Shelf.save`, `Shelf.__init__` | concurrency and races, data durability, seeded invariants, lifecycle, soak |
 | 5 | The catch-all error handler hides every cause: `error: operation failed` even for the carefully written `ShelfError` messages, a corrupt file, or a missing import file | `main` | error paths, first contact, diagnostics, copy review |
-| 6 | `import` rewrites the whole file after every row, so large imports are quadratic (about 27 s for 2,000 links on the reference machine) and multiply flaw 4's crash window | `Shelf.import_file` calling `add` | performance budget, soak, synthetic-input driver |
+| 6 | `import` rewrites the whole file after every row, so import time grows with the square of the number of links (doubling the links roughly quadruples the time; a few thousand links take tens of seconds) and multiplies flaw 4's crash window | `Shelf.import_file` calling `add` | performance budget, soak, synthetic-input driver |
 
 ## How each one reproduces
 
@@ -30,7 +30,8 @@ Every flaw below was reproduced against the shipped files before publication.
    truncated `shelf.json`: every command now fails.
 5. Add the same link twice from the command line: the second attempt prints
    `error: operation failed` instead of `already on the shelf`.
-6. Import a generated export with 2,000 links and time it.
+6. Import generated exports of 500, 1,000 and 2,000 links and time each:
+   every doubling roughly quadruples the time.
 
 ## What a complete fix includes (for judging the integration)
 

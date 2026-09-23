@@ -540,6 +540,9 @@ class StatusStopResumeTests(KitTestCase):
 
     def test_stop_and_resume(self) -> None:
         self.ws.ok("init", "--apply")
+        self.ws.ok("baseline", "--apply")
+        self.ws.ok("plan", "1", "--apply")
+        self.ws.ok("render", "1", "--apply")
         self.assertIn("PLAN ONLY", self.ws.ok("stop", "--reason", "owner is away"))
         self.assertFalse((self.ws.state / "STOP").exists())
         self.ws.ok("stop", "--reason", "owner is away", "--apply")
@@ -547,8 +550,18 @@ class StatusStopResumeTests(KitTestCase):
         self.assertTrue(report["stop_requested"])
         self.assertIn("Stopped", report["next"])
         self.assertIn("STOPPED", (self.ws.state / "review" / "REVIEW.md").read_text())
+        for command in (("worktrees", "1", "--apply"), ("plan", "2", "--apply")):
+            code, _, err = self.ws.kit(*command)
+            self.assertEqual(code, 1, command)
+            self.assertIn("STOP is requested (", err)
+            self.assertIn("owner is away", err)
+        self.assertFalse((self.ws.state / "g1" / "worktrees.json").exists())
+        self.assertFalse((self.ws.state / "g2").exists())
+        self.assertIn("PLAN ONLY", self.ws.ok("worktrees", "1"))
         self.ws.ok("resume", "--apply")
         self.assertFalse(self.status()["stop_requested"])
+        self.ws.ok("worktrees", "1", "--apply")
+        self.assertTrue((self.ws.state / "g1" / "worktrees.json").is_file())
 
 
 class RecordTests(KitTestCase):
