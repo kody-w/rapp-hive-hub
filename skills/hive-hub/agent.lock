@@ -79,8 +79,8 @@
     },
     {
       "path": "registry/public-dialbook.json",
-      "bytes": 6783,
-      "sha256": "316695cbf51a37500e56fdd5dfb772d3a9cbe2c899b54854f28c2037830bbe12"
+      "bytes": 7343,
+      "sha256": "ddc17b03de246a7b03d8135f698af0f650898bf0ed295d84cfee3647df3934ac"
     },
     {
       "path": "schemas/core-ai-join-card.schema.json",
