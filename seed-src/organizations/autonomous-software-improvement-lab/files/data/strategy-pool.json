@@ -1,0 +1,674 @@
+{
+  "schema": "improver-strategy-pool/1",
+  "notes": "Generic strategy lenses for any software. Each lens is a distinct method of finding the most valuable problem. The kit never plans a lens twice across generations. needs lists the project surfaces a lens requires (any, api, cli, data, library, service, ui); tags let an owner's focus prefer related lenses. Retire a lens with \"retired\": true instead of deleting it, so history stays readable.",
+  "strategies": [
+    {
+      "slug": "empirical-sweep",
+      "name": "Empirical sweep",
+      "lens": "Run everything that can be run before forming an opinion: the full test suite, every command's help, every documented example, and the main flows with realistic inputs. Collect each failure, warning, slow step and surprising output, then rank them by what a user would feel.",
+      "finds": "Problems that already show up when you simply use and test the software.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "quality"
+      ],
+      "risks": "The output is noisy; rank by user impact, not by count, and reproduce before reporting."
+    },
+    {
+      "slug": "day-in-the-life",
+      "name": "A day in the user's life",
+      "lens": "Write a realistic day for the primary user, from first use to last action, and perform it step by step on disposable data. Note every point of friction, confusion, waiting, distrust or workaround.",
+      "finds": "Workflow friction that no unit test sees.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "ux",
+        "workflow"
+      ],
+      "risks": "Use disposable data and the isolated harness; never act on the owner's real accounts or files."
+    },
+    {
+      "slug": "promise-audit",
+      "name": "Promise audit",
+      "lens": "List every promise the software makes, in the README, help text, docs, interface copy, error messages, API docs and changelog. Test each promise against the actual behavior.",
+      "finds": "Broken, stale or overstated promises, and documentation that no longer matches the code.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "docs",
+        "correctness"
+      ],
+      "risks": "Fix the behavior when the promise is right, and the promise when the behavior is right; say which."
+    },
+    {
+      "slug": "pre-mortem",
+      "name": "Pre-mortem",
+      "lens": "Assume that six months from now the software failed its users badly. Write the three most plausible stories of how it happened, then look for evidence that each story is already under way.",
+      "finds": "Latent systemic risks: data loss paths, scaling cliffs, trust erosion, single points of failure.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "risk"
+      ],
+      "risks": "Stories are hypotheses; only report a risk with concrete evidence in the current code."
+    },
+    {
+      "slug": "trust-boundaries",
+      "name": "Trust-boundary verification",
+      "lens": "Map every place data crosses a boundary: user input, files, network, environment variables, other processes, plugins. Verify that each crossing is validated, bounded and fails closed, and that equivalent entry points apply the same checks.",
+      "finds": "Missing or inconsistent validation, unbounded reads, injection paths, checks that one entry point skips.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "security",
+        "correctness"
+      ],
+      "risks": "Defensive work only, on local fixtures; never attack real systems, accounts or networks."
+    },
+    {
+      "slug": "performance-budget",
+      "name": "Performance budget",
+      "lens": "Set budgets for the operations users feel: startup, the main action, the largest realistic input. Measure against them with scaled inputs and find the first budget that breaks, and why.",
+      "finds": "Quadratic algorithms, repeated I/O, needless work on the hot path, slow startup.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "performance"
+      ],
+      "risks": "Measure on a quiet machine, repeat measurements, and keep time-based tests generous so they never flake."
+    },
+    {
+      "slug": "defect-archaeology",
+      "name": "Defect archaeology",
+      "lens": "Mine the version history: fix-after-fix chains, reverts, hot files, TODOs and issue references. Find the area that keeps breaking and the root cause the patches keep missing.",
+      "finds": "Recurring defect hotspots and root causes hidden behind symptomatic fixes.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "history"
+      ],
+      "risks": "History shows where to look, not what is wrong; confirm the root cause in the current code."
+    },
+    {
+      "slug": "autopilot-playtest",
+      "name": "Autopilot playtest",
+      "lens": "Drive the software only through its automation surfaces (command-line flags, API, scripting hooks, test harness) as an agent would, attempting real goals end to end without human judgment.",
+      "finds": "Steps only a person can do, ambiguous outputs, missing machine-readable status, dead ends for agents.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "automation"
+      ],
+      "risks": "Drive only disposable instances; never point automation at the owner's live software."
+    },
+    {
+      "slug": "first-contact",
+      "name": "First-contact walkthrough",
+      "lens": "Pretend you have never seen the project. From a clean checkout, follow only the README to the first successful outcome, timing each step and recording every guess you had to make.",
+      "finds": "Onboarding gaps, missing prerequisites, commands that fail on a clean machine.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "onboarding",
+        "docs"
+      ],
+      "risks": "Use a scratch copy and a throwaway home so setup steps cannot touch the real environment."
+    },
+    {
+      "slug": "accessibility",
+      "name": "Accessibility pass",
+      "lens": "Evaluate keyboard-only use, screen-reader semantics, contrast, motion, text scaling and how errors are announced. For text interfaces, check color-only signals, output readability and terminal compatibility.",
+      "finds": "Barriers that exclude people, and signals that depend on color, sight or precise pointing.",
+      "needs": [
+        "ui",
+        "cli"
+      ],
+      "tags": [
+        "ux",
+        "accessibility"
+      ],
+      "risks": "Follow established accessibility guidance; do not invent private conventions."
+    },
+    {
+      "slug": "seeded-invariants",
+      "name": "Invariants under seeded interleavings",
+      "lens": "Write down the invariants that must always hold, such as no data lost, ids unique and totals consistent. Test them under many seeded random sequences and interleavings of operations, reproducibly, and keep the generator as a test.",
+      "finds": "State corruption and ordering bugs that example-based tests never reach.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "correctness",
+        "concurrency"
+      ],
+      "risks": "Print the seed for every failure so it replays exactly; bound iterations to keep the suite fast."
+    },
+    {
+      "slug": "soak-longevity",
+      "name": "Soak and longevity",
+      "lens": "Run the software for a long time or for many iterations: repeated operations, growing data, long uptime. Watch memory, file handles, disk growth, degradation and drift.",
+      "finds": "Leaks, unbounded growth, slowdowns and state drift that only appear over time.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability"
+      ],
+      "risks": "Bound run time and disk use; stop well before the machine is stressed; never soak the owner's live software."
+    },
+    {
+      "slug": "subtraction",
+      "name": "Subtraction",
+      "lens": "Find what can be removed: dead code, redundant options, unreachable features, duplicate mechanisms. Every removal must make the software simpler without losing a promised capability.",
+      "finds": "Bloat, confusing duplication and maintenance cost with no user value.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "simplicity"
+      ],
+      "risks": "Removing a documented option is a breaking change; prove it is unused or propose a deprecation."
+    },
+    {
+      "slug": "contract-compatibility",
+      "name": "Contract and compatibility",
+      "lens": "Identify every contract others depend on: file formats, command-line flags, API shapes, exit codes, configuration keys, stored data. Check for silent breaking changes, missing versioning and migration gaps.",
+      "finds": "Compatibility hazards and data written today that tomorrow's version cannot read.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "compatibility"
+      ],
+      "risks": "Never rewrite real stored data during analysis; test migrations on copies."
+    },
+    {
+      "slug": "error-paths",
+      "name": "Error-path enumeration",
+      "lens": "Enumerate every way each operation can fail: bad input, missing file, permission denied, full disk, timeout, interruption. Exercise each one and record what the user sees and whether the cause and the next step are clear.",
+      "finds": "Swallowed errors, misleading messages, silent no-ops and failures reported as success.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability",
+        "ux"
+      ],
+      "risks": "Simulate failures with fixtures and fakes; never fill the real disk or break real permissions."
+    },
+    {
+      "slug": "mutation-testing",
+      "name": "Mutation testing",
+      "lens": "Deliberately introduce small faults into important code (flip a condition, drop a line, change a constant) and see whether the tests notice. Each surviving mutant marks behavior that nothing tests.",
+      "finds": "Tests that execute code without checking it, and critical logic with no real coverage.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "testing"
+      ],
+      "risks": "Mutate scratch copies only and never commit a mutant; commit the missing tests instead."
+    },
+    {
+      "slug": "time-to-outcome",
+      "name": "Time-to-outcome economics",
+      "lens": "Measure how long, and how many steps, it takes a user to reach each top outcome. Find the single change that removes the most time or steps across all users.",
+      "finds": "Slow paths to value, redundant confirmations, and work the software could do for the user.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "ux",
+        "workflow"
+      ],
+      "risks": "Count real steps on real flows; do not trade away safety confirmations that protect data."
+    },
+    {
+      "slug": "offline-degraded",
+      "name": "Offline and degraded operation",
+      "lens": "Take away the network, a dependency, disk space or a backing service, and see what still works, what fails clearly, and what hangs or corrupts data.",
+      "finds": "Hangs without timeouts, corruption on partial failure, and features that die with an optional dependency.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability"
+      ],
+      "risks": "Simulate outages locally with dead ports and fakes; never disable the owner's real network or services."
+    },
+    {
+      "slug": "strength-amplification",
+      "name": "Strength amplification",
+      "lens": "Identify the one thing the software already does best, and make it more reachable, more reliable or more widely applied, instead of fixing a weakness.",
+      "finds": "Underused strengths hidden behind poor discoverability or narrow applicability.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "value"
+      ],
+      "risks": "Amplify without adding surface area the owner did not ask for."
+    },
+    {
+      "slug": "platform-alignment",
+      "name": "Platform-native alignment",
+      "lens": "Check the software against the conventions of each platform it runs on: file locations, signals, exit codes, keyboard shortcuts, packaging norms, language idioms. Find where it fights the platform.",
+      "finds": "Surprising locations, ignored signals, non-standard exit codes, idioms that confuse contributors.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "platform"
+      ],
+      "risks": "Prefer documented platform conventions over personal taste; keep cross-platform behavior consistent."
+    },
+    {
+      "slug": "artifact-conformance",
+      "name": "Artifact conformance",
+      "lens": "Validate everything the software produces (files, exports, reports, packages, logs) against the formats it claims, using independent parsers and round trips.",
+      "finds": "Malformed outputs, lossy round trips, and exports that other tools reject.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "data",
+        "correctness"
+      ],
+      "risks": "Validate generated copies in scratch space; never rewrite the owner's real artifacts."
+    },
+    {
+      "slug": "configuration-matrix",
+      "name": "Configuration matrix",
+      "lens": "Enumerate every configuration source (defaults, files, environment variables, flags) and their combinations. Test precedence, contradictions and unsupported combinations.",
+      "finds": "Contradictory defaults, precedence bugs, and settings that are silently ignored.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "configuration"
+      ],
+      "risks": "Use throwaway configuration directories; never edit the real user configuration."
+    },
+    {
+      "slug": "copy-review",
+      "name": "Copy review",
+      "lens": "Read every user-visible string (messages, help, labels, errors, documentation) the way a user would. Fix what is wrong, vague, inconsistent or untrue.",
+      "finds": "Misleading wording, jargon, inconsistent names and messages that blame the user.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "ux",
+        "docs"
+      ],
+      "risks": "Change wording, not behavior, unless the wording reveals a real bug; then fix the bug."
+    },
+    {
+      "slug": "layout-geometry",
+      "name": "Layout and geometry",
+      "lens": "Exercise the interface at every window size, zoom level, density and content length. Look for overlap, clipping, truncation, layout shift and controls that move under the pointer.",
+      "finds": "Layouts that break at real sizes and with real content.",
+      "needs": [
+        "ui"
+      ],
+      "tags": [
+        "ux"
+      ],
+      "risks": "Use the isolated harness and capture evidence; never resize or drive the owner's live windows."
+    },
+    {
+      "slug": "concurrency-races",
+      "name": "Concurrency and races",
+      "lens": "Find shared state touched by more than one thread, process, request or instance. Build reproducible races: two writers, an interrupted write, a double submit, a stale read.",
+      "finds": "Lost updates, torn writes, duplicate ids and check-then-act races.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "concurrency",
+        "correctness"
+      ],
+      "risks": "Race only against disposable data and make every race deterministic enough to keep as a test."
+    },
+    {
+      "slug": "continuity-memory",
+      "name": "Continuity and memory",
+      "lens": "Check what survives restarts, crashes, upgrades and moves between machines: preferences, drafts, history, position. Find where users lose context or work.",
+      "finds": "Lost drafts, forgotten preferences, and state that a crash or upgrade silently resets.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability",
+        "ux"
+      ],
+      "risks": "Test restarts on isolated instances with throwaway profiles, never on the owner's live state."
+    },
+    {
+      "slug": "micro-interactions",
+      "name": "Micro-interaction polish",
+      "lens": "Focus on the smallest repeated interactions (a keystroke, a click, a confirmation, a progress update) and on their feedback, timing and clarity.",
+      "finds": "Missing feedback, sluggish responses and small frictions repeated many times a day.",
+      "needs": [
+        "ui",
+        "cli"
+      ],
+      "tags": [
+        "ux"
+      ],
+      "risks": "Keep changes small and measurable; do not redesign whole screens under this lens."
+    },
+    {
+      "slug": "owner-vision-gap",
+      "name": "Owner-vision gap",
+      "lens": "Compare what the owner says the software is for (README vision, roadmap, stated principles) with what it actually does today. Find the largest gap that one change can close.",
+      "finds": "Features that contradict the stated vision, and promised directions with no first step.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "value"
+      ],
+      "risks": "Quote the owner's own words; do not substitute your vision for theirs."
+    },
+    {
+      "slug": "self-regression-hunt",
+      "name": "Regression hunt of the loop's own changes",
+      "lens": "Review what earlier generations of this loop integrated, looking for regressions, half-finished edges, missing tests and stale docs that the loop itself introduced.",
+      "finds": "Regressions and loose ends created by previous generations.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "meta",
+        "testing"
+      ],
+      "risks": "Most useful from generation 2 on; judge earlier changes by evidence, not by who made them."
+    },
+    {
+      "slug": "lifecycle",
+      "name": "Lifecycle",
+      "lens": "Exercise install, first launch, normal quit, forced kill, crash, relaunch, upgrade and uninstall. Check that every transition leaves state consistent and recoverable.",
+      "finds": "Corruption on forced exit, orphaned processes and locks, and upgrades that strand old data.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability"
+      ],
+      "risks": "Kill and relaunch only isolated instances you started; never the owner's live software."
+    },
+    {
+      "slug": "protocol-design",
+      "name": "Prompt and protocol design",
+      "lens": "Where the software talks to another system (a model, a server, a plugin, a subprocess), inspect the exact messages. Find ambiguity, missing versioning, unhandled responses and instructions the other side cannot follow.",
+      "finds": "Fragile integrations, ambiguous prompts or payloads, and unhandled error responses.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "integration"
+      ],
+      "risks": "Use fakes or recorded fixtures; never send real traffic that has side effects."
+    },
+    {
+      "slug": "background-work",
+      "name": "Background and autonomous work",
+      "lens": "Inventory everything that happens without direct user action: timers, schedulers, watchers, retries, sync. Check that each is bounded, observable, cancellable and honest about outcomes.",
+      "finds": "Runaway retries, invisible failures, work that cannot be stopped, and success claimed too early.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability",
+        "automation"
+      ],
+      "risks": "Shorten intervals only in tests; never leave background jobs running after you finish."
+    },
+    {
+      "slug": "feature-deep-dive",
+      "name": "Feature deep-dive",
+      "lens": "Pick the single most important feature and study it exhaustively: every option, input class, state and edge case. Make that one feature excellent.",
+      "finds": "Edge cases and rough behavior in the feature users rely on most.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "quality"
+      ],
+      "risks": "Say why this feature matters most; stay inside it rather than touring the whole product."
+    },
+    {
+      "slug": "synthetic-input-driver",
+      "name": "Synthetic-input driver",
+      "lens": "Build a small generator of realistic and extreme inputs (sizes, encodings, unusual characters, malformed records) and drive the software with it. Keep the generator as a reusable test.",
+      "finds": "Crashes and wrong results on inputs that hand-written examples never cover.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "testing",
+        "data"
+      ],
+      "risks": "Keep generated data synthetic and seeded; never feed real personal data."
+    },
+    {
+      "slug": "defaults-audit",
+      "name": "Defaults audit",
+      "lens": "List every default value and default behavior. For each, ask whether it is the safest reasonable choice, whether it agrees with related defaults, and whether it is documented.",
+      "finds": "Contradictory, unsafe or undocumented defaults.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "configuration",
+        "safety"
+      ],
+      "risks": "Changing a default changes behavior for everyone; document it and add a test."
+    },
+    {
+      "slug": "sibling-parity",
+      "name": "Sibling and competitor parity",
+      "lens": "Compare the software with the closest tools its users also know. Find the expectations users will bring that this software silently breaks, and the one parity gap that matters most.",
+      "finds": "Surprises for users coming from familiar tools, and missing table-stakes behavior.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "value",
+        "ux"
+      ],
+      "risks": "Compare publicly documented behavior only; never copy another project's code or text."
+    },
+    {
+      "slug": "delegation-trial",
+      "name": "Delegation trial",
+      "lens": "Try to delegate one real user goal to an automated agent through the software's existing seams (command line, API, files, hooks) and record exactly where delegation fails.",
+      "finds": "Missing seams for automation and outputs an agent cannot interpret.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "automation"
+      ],
+      "risks": "Delegate only inside the harness or on disposable data."
+    },
+    {
+      "slug": "ui-automation-parity",
+      "name": "Interface and automation parity",
+      "lens": "List every capability of the interactive surface and check that the automation surface can do the same, with the same validation and results, and the other way round.",
+      "finds": "Capabilities only one surface has, and validation one surface skips.",
+      "needs": [
+        "ui",
+        "api",
+        "cli"
+      ],
+      "tags": [
+        "automation"
+      ],
+      "risks": "Parity means the same rules, not a second implementation of them."
+    },
+    {
+      "slug": "observation-waiting",
+      "name": "Observation and waiting",
+      "lens": "Check whether an operator or an agent can tell what the software is doing right now and wait for completion reliably, without sleeping blindly: status, progress, events, exit codes.",
+      "finds": "Blind sleeps, missing status, ambiguous completion and progress that lies.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "automation",
+        "reliability"
+      ],
+      "risks": "Replace sleeps with real signals in tests too; never poll the owner's live software."
+    },
+    {
+      "slug": "front-door-api",
+      "name": "A front-door API",
+      "lens": "Design the smallest stable entry point through which a program could accomplish the top outcomes, and find which existing pieces already form it.",
+      "finds": "Scattered internals that callers must stitch together, and missing stable entry points.",
+      "needs": [
+        "api",
+        "library",
+        "cli"
+      ],
+      "tags": [
+        "automation"
+      ],
+      "risks": "A public entry point is a contract; version it and keep it small."
+    },
+    {
+      "slug": "bounded-autonomy",
+      "name": "Bounded autonomy and consent",
+      "lens": "Find actions with side effects that happen without explicit consent or without limits: deletes, sends, spends, overwrites. Make them plan-first, bounded and reversible.",
+      "finds": "Irreversible actions without confirmation, unbounded batch effects and missing undo.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "safety"
+      ],
+      "risks": "Test destructive paths only on disposable data; never trigger real sends or spends."
+    },
+    {
+      "slug": "outcome-semantics",
+      "name": "Outcome semantics",
+      "lens": "Check that every operation reports what actually happened (success, partial success, no-op, failure) truthfully, both for people and in machine-readable form.",
+      "finds": "Success reported for no-ops, partial failures hidden, and exit codes that lie.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "correctness",
+        "automation"
+      ],
+      "risks": "Changing exit codes or outputs affects scripts; document the change."
+    },
+    {
+      "slug": "semantic-addressing",
+      "name": "Semantic addressing",
+      "lens": "Check how people and programs refer to things: ids, names, paths, selectors. Replace brittle addressing (positions, coordinates, unstable ids) with stable, meaningful references.",
+      "finds": "Addressing that breaks when order, layout or content changes.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "automation",
+        "compatibility"
+      ],
+      "risks": "Keep old addresses working while introducing new ones."
+    },
+    {
+      "slug": "self-describing-manifest",
+      "name": "Self-describing tool manifest",
+      "lens": "Make the software describe its own capabilities, inputs, outputs and safety properties in a machine-readable manifest that an agent can read before acting.",
+      "finds": "Capabilities an agent cannot discover, and side effects nobody declared.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "automation"
+      ],
+      "risks": "Generate the manifest from the code or test it against the code, so it cannot drift."
+    },
+    {
+      "slug": "data-durability",
+      "name": "Data durability",
+      "lens": "Follow every write of user data from memory to disk: atomic replacement, flushing, backups, recovery from partial writes, and what happens when two writers meet.",
+      "finds": "Truncation on crash, lost updates and unrecoverable corruption.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "data",
+        "correctness"
+      ],
+      "risks": "Simulate crashes on copies; never interrupt writes to the owner's real data."
+    },
+    {
+      "slug": "hermetic-test-audit",
+      "name": "Hermetic test audit",
+      "lens": "Check that tests never touch real user state: home directories, configuration, network services, clocks, shared temp files. Find tests that pass only because of one developer's machine.",
+      "finds": "Tests that write to the real home, depend on the network or the clock, or leak state between runs.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "testing",
+        "safety"
+      ],
+      "risks": "Prove isolation by running with a throwaway home and comparing the real home before and after."
+    },
+    {
+      "slug": "dependency-hygiene",
+      "name": "Dependency hygiene",
+      "lens": "Review dependencies for necessity, pinning, license, maintenance and attack surface. Find the one that costs the most for what it gives.",
+      "finds": "Unpinned, abandoned or oversized dependencies and duplicate libraries.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "maintenance",
+        "security"
+      ],
+      "risks": "Propose dependency changes with evidence; do not add or upgrade dependencies without the owner's consent."
+    },
+    {
+      "slug": "diagnostics-supportability",
+      "name": "Diagnostics and supportability",
+      "lens": "Try to diagnose three plausible user problems using only what the software records and prints. Find what a supporter would need but cannot see.",
+      "finds": "Missing context in logs and errors, and diagnostics that leak private data.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "reliability",
+        "ux"
+      ],
+      "risks": "Never paste real personal data into reports; redact by pattern."
+    },
+    {
+      "slug": "internationalization",
+      "name": "Internationalization",
+      "lens": "Push non-ASCII text, right-to-left scripts, locale formats, time zones and encodings through every input and output.",
+      "finds": "Mangled text, locale-dependent parsing bugs and time-zone errors.",
+      "needs": [
+        "any"
+      ],
+      "tags": [
+        "data",
+        "ux"
+      ],
+      "risks": "Use synthetic multilingual fixtures; never real personal names or messages."
+    }
+  ]
+}

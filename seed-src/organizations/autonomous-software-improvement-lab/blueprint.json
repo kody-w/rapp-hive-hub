@@ -1,0 +1,461 @@
+{
+  "schema": "hive-hub-organization-blueprint/1",
+  "slug": "autonomous-software-improvement-lab",
+  "name": "The Autonomous Software Improvement Lab",
+  "tagline": "Eight independent strategies per round, build what they converge on, verify it, repeat until you say stop, all local by default.",
+  "mission": "Run a continuous improvement loop on any software with the AI host you already use. Each generation, eight strategists apply eight never-reused lenses in isolated git worktrees, a tally finds what they converge on, one integrator builds the top consensus features, and an independent verifier re-runs every check and audits protected paths before the integration branch moves. The owner reviews one living document backed by read-only receipts. Local commits only, until the owner says stop. Includes an offline kit and a deliberately flawed practice target.",
+  "world_id": "demo-autonomous-software-improvement-lab",
+  "teams": [
+    {
+      "slug": "orchestration",
+      "name": "Loop orchestration",
+      "role": "Runs the loop and keeps it running",
+      "purpose": "Configure the kit, drive every step of each generation, keep the loop running unattended, re-run generations interrupted by a host restart, and honor STOP."
+    },
+    {
+      "slug": "strategy-library",
+      "name": "Strategy library",
+      "role": "Strategy pool stewardship",
+      "purpose": "Own the pool of lenses: plan each generation's never-reused strategies, fit them to the project's surfaces and the owner's focus, and add or retire lenses before the pool runs dry."
+    },
+    {
+      "slug": "strategy-council",
+      "name": "Strategy council",
+      "role": "Independent strategists",
+      "purpose": "Eight independent strategists per generation, each applying one lens in its own worktree: discover with evidence, fix the most valuable problem, verify, commit locally and report in the fixed format."
+    },
+    {
+      "slug": "tally",
+      "name": "Tally",
+      "role": "Consensus",
+      "purpose": "Turn eight reports into one decision: cluster findings by what the solution requires, apply the majority rule, pick the top 3, say majority-like when needed, and carry minority findings forward."
+    },
+    {
+      "slug": "integration",
+      "name": "Integration",
+      "role": "Consensus integration",
+      "purpose": "Build the consensus features as one coherent change on a fresh branch from the integration head, reconciling the source commits where they meet and leaving minority work out."
+    },
+    {
+      "slug": "verification-and-safety",
+      "name": "Verification and safety",
+      "role": "Independent verification and safety",
+      "purpose": "Keep the bar and the boundaries: hermetic tests, the baseline, the harness firewall, protected-path audits, and independent re-verification before the integration branch moves."
+    },
+    {
+      "slug": "owner-desk",
+      "name": "Owner desk",
+      "role": "The owner's interface",
+      "purpose": "Run the intake, keep the living review current, snapshot immutable receipts, and deliver the owner's direct requests outside the vote."
+    }
+  ],
+  "case": {
+    "id": "practice-shelf-generation-one",
+    "title": "Practice Shelf: run one full generation of the loop on a deliberately flawed target, then plan the next",
+    "brief": "Practice Shelf is a small, ORIGINAL, offline command-line bookmark keeper (Python standard library) written for this seed as practice material. Its code and tests contain deliberate flaws of different kinds, including tests that write into the real home directory; its README says so plainly, and the answer key stays outside the practice repository until the tally is drafted. Everything is SYNTHETIC and local: no real users, no network, nothing pushed. The organization configures the kit, makes the tests hermetic, records the baseline, runs eight independent strategists, tallies their convergence, integrates the consensus, verifies it independently, records it in the living review with read-only receipts, drills an owner request and an interruption, and plans generation 2 before pointing the kit at real software.",
+    "inputs": [
+      "target/README.md",
+      "target/shelf.py",
+      "target/test_shelf.py",
+      "data/improver.config.example.json",
+      "docs/playbook.md",
+      "reference/improver.py"
+    ],
+    "success_criteria": [
+      "The baseline is recorded at the integration head after the hermetic fix, every verify command passes, and no application data is written into the real home or any other protected path.",
+      "Eight never-reused strategies run in separate worktrees and branches, and all eight reports follow the fixed format with evidence, a Top 3, a candidate ledger, and commits the kit verified on each strategist's branch.",
+      "The tally clusters findings by the solution they require, applies the ceil((N+1)/2) majority rule, names the top 3 with majority or majority-like labels, and carries every unselected finding into the recurring table.",
+      "The integration is re-verified independently at its exact commit and the protected-path audit is clean before the integration branch is fast-forwarded; record then adds read-only receipts, the history entry and an updated living review.",
+      "Generation 2 is planned from the new head with the history extended and no reused strategy, and a runbook covers leaving the loop running, stopping it and resuming after an interruption.",
+      "Nothing is represented as done without its evidence: sample reports are used only for tally practice, labeled as fixtures, and removed before a real run."
+    ]
+  },
+  "tasks": [
+    {
+      "id": "owner-intake",
+      "team": "owner-desk",
+      "title": "Run the intake and scope with the owner",
+      "instructions": "Agree with the owner, in writing, what the loop may do: the target (Practice Shelf first), what better means, an optional focus, protected paths, live software and ports to leave alone, the local-only boundary, the stop mechanism and the time budget. Record decisions and open questions; never infer consent.",
+      "inputs": [
+        "README.md",
+        "docs/playbook.md",
+        "docs/safety.md",
+        "target/README.md"
+      ],
+      "outputs": [
+        "deliverables/intake/owner-brief.md"
+      ],
+      "depends_on": [],
+      "acceptance": [
+        "Protected paths, live ports to avoid, the local-only boundary and the stop mechanism are written down and confirmed by the owner.",
+        "The focus is either quoted in the owner's words or explicitly empty.",
+        "The answer key is recorded as withheld from the practice repository until the tally is drafted."
+      ]
+    },
+    {
+      "id": "kit-self-test",
+      "team": "verification-and-safety",
+      "title": "Test the kit before trusting it",
+      "instructions": "Run the kit's own unit tests from a scratch copy with Python 3.10 or newer and git. Read the safety contract at the top of improver.py and observe that mutating commands only print a plan without --apply. Record the interpreter, the git version and the exact results.",
+      "inputs": [
+        "reference/improver.py",
+        "reference/test_improver.py",
+        "docs/safety.md"
+      ],
+      "outputs": [
+        "deliverables/setup/kit-self-test.md"
+      ],
+      "depends_on": [],
+      "acceptance": [
+        "The exact command, interpreter version, git version and test counts are recorded; every test passes or each failure is reported as a blocker.",
+        "The tests ran in temporary directories and changed no file outside them.",
+        "The plan-first behavior of at least init and worktrees is observed and described."
+      ]
+    },
+    {
+      "id": "kit-configuration",
+      "team": "orchestration",
+      "title": "Configure the kit for the practice target",
+      "instructions": "Create the practice repository from the three target files, without the answer key. Copy the example config, adjust it to the intake (protected paths, live ports, focus) and check it against the schema. Run init, review the printed plan, then apply it.",
+      "inputs": [
+        "deliverables/intake/owner-brief.md",
+        "deliverables/setup/kit-self-test.md",
+        "data/improver.config.example.json",
+        "data/improver.config.schema.json",
+        "reference/improver.py",
+        "target/shelf.py",
+        "target/test_shelf.py",
+        "target/README.md"
+      ],
+      "outputs": [
+        "deliverables/setup/improver.config.json",
+        "deliverables/setup/init-log.md"
+      ],
+      "depends_on": [
+        "owner-intake",
+        "kit-self-test"
+      ],
+      "acceptance": [
+        "The state directory is outside the practice repository, and no protected path overlaps either of them.",
+        "The init plan was printed and reviewed before --apply, and the integration branch was created from main without changing main.",
+        "ANSWER-KEY.md is absent from the practice repository."
+      ]
+    },
+    {
+      "id": "hermetic-tests",
+      "team": "verification-and-safety",
+      "title": "Make the practice tests hermetic",
+      "instructions": "Add a preload that the test module imports before the application, giving the whole test process a throwaway home and clearing PRACTICE_SHELF_ variables. Prove it with an audit marker on the real data directory, a test run and a clean audit. Commit through a worktree, never the shared checkout, and fast-forward the integration branch only after every verify command passes.",
+      "inputs": [
+        "deliverables/setup/improver.config.json",
+        "target/test_shelf.py",
+        "target/shelf.py",
+        "docs/safety.md",
+        "docs/playbook.md"
+      ],
+      "outputs": [
+        "deliverables/setup/hermetic-tests.patch",
+        "deliverables/setup/hermetic-proof.md"
+      ],
+      "depends_on": [
+        "kit-configuration"
+      ],
+      "acceptance": [
+        "Every test still passes, and a clean audit shows that the real home received no practice-shelf data.",
+        "The preload isolates the whole test process, including work that runs after a test's own cleanup.",
+        "The patch changes only test infrastructure, not the application's deliberate flaws."
+      ]
+    },
+    {
+      "id": "strategy-pool-review",
+      "team": "strategy-library",
+      "title": "Review the strategy pool for this project",
+      "instructions": "Validate data/strategy-pool.json with the kit, count the lenses that fit the project's surfaces, and confirm that at least two generations of never-reused lenses remain. Propose additions or retirements with reasons; never delete a lens that has been used.",
+      "inputs": [
+        "data/strategy-pool.json",
+        "deliverables/intake/owner-brief.md",
+        "docs/playbook.md"
+      ],
+      "outputs": [
+        "deliverables/strategy/pool-review.md"
+      ],
+      "depends_on": [
+        "owner-intake"
+      ],
+      "acceptance": [
+        "The count of eligible, unused lenses comes from the kit's init output.",
+        "Every new lens has a unique slug that is not a reserved directory name, plus a name, lens, finds, needs and risks.",
+        "Retired lenses are marked retired rather than deleted."
+      ]
+    },
+    {
+      "id": "baseline-record",
+      "team": "verification-and-safety",
+      "title": "Record the baseline",
+      "instructions": "Run baseline --apply at the integration head after the hermetic fix. Every verify command must pass, and home_writes must list no application data. Record the exact commit, commands, results and log locations.",
+      "inputs": [
+        "deliverables/setup/improver.config.json",
+        "deliverables/setup/hermetic-proof.md"
+      ],
+      "outputs": [
+        "deliverables/baseline/baseline-g0.json"
+      ],
+      "depends_on": [
+        "hermetic-tests"
+      ],
+      "acceptance": [
+        "The recorded head equals the integration branch head.",
+        "Every verify command passed, with exit codes and durations recorded.",
+        "No application data appears in home_writes."
+      ]
+    },
+    {
+      "id": "generation-1-plan",
+      "team": "strategy-library",
+      "title": "Plan generation 1",
+      "instructions": "Run plan 1, review the eight lenses against the project's surfaces and the owner's focus, then apply it. Confirm that the same seed reproduces the same choice.",
+      "inputs": [
+        "deliverables/strategy/pool-review.md",
+        "deliverables/baseline/baseline-g0.json",
+        "deliverables/intake/owner-brief.md"
+      ],
+      "outputs": [
+        "deliverables/generation-1/plan.json"
+      ],
+      "depends_on": [
+        "strategy-pool-review",
+        "baseline-record"
+      ],
+      "acceptance": [
+        "Eight distinct lenses are planned from the recorded integration head.",
+        "Running plan 1 again without --apply prints the same eight lenses.",
+        "The majority threshold of 5 of 8 is recorded in the plan."
+      ]
+    },
+    {
+      "id": "briefs-and-worktrees",
+      "team": "orchestration",
+      "title": "Render briefs, create worktrees, mark the audit",
+      "instructions": "Run render 1 and worktrees 1, each plan-first, then mark the protected-path audit before any strategist starts. Spot-check two briefs for the lens, history, baseline and safety rules.",
+      "inputs": [
+        "deliverables/generation-1/plan.json",
+        "templates/strategist-brief.md",
+        "templates/report.md",
+        "reference/improver.py"
+      ],
+      "outputs": [
+        "deliverables/generation-1/briefs-and-worktrees.md"
+      ],
+      "depends_on": [
+        "generation-1-plan"
+      ],
+      "acceptance": [
+        "Eight briefs exist, with no unfilled placeholder.",
+        "Eight worktrees and branches exist, each created from the planned base commit.",
+        "Audit marker g1 was recorded before any strategist was launched."
+      ]
+    },
+    {
+      "id": "strategist-runs",
+      "team": "strategy-council",
+      "title": "Run the eight strategists",
+      "instructions": "Launch all eight as parallel background sub-agents, each with the full text of its own brief and nothing else. Wait for all eight reports. If status shows dead strategists, re-run the whole generation. Summarize each report's verdict, commits and worktree state from the kit's evidence, not from claims.",
+      "inputs": [
+        "deliverables/generation-1/briefs-and-worktrees.md",
+        "templates/report.md",
+        "docs/safety.md"
+      ],
+      "outputs": [
+        "deliverables/generation-1/strategist-index.md"
+      ],
+      "depends_on": [
+        "briefs-and-worktrees"
+      ],
+      "acceptance": [
+        "Eight reports exist in the fixed format, or the generation was re-run after an interruption and the interrupted attempt is archived and not counted.",
+        "Each strategist's commits are verified on its own branch, and its worktree is clean.",
+        "No strategist read another's worktree, branch or report, and no protected path changed."
+      ]
+    },
+    {
+      "id": "consensus-tally",
+      "team": "tally",
+      "title": "Tally generation 1",
+      "instructions": "Run tally 1, then cluster by what each solution requires: map keys that need the same change onto one key in aliases.json and tally again. Finalize TALLY.md with the majority, the top 3, explicit majority-like labels, the recurring table and the kept branches. Only then compare the result with the answer key.",
+      "inputs": [
+        "deliverables/generation-1/strategist-index.md",
+        "docs/consensus.md",
+        "target/ANSWER-KEY.md"
+      ],
+      "outputs": [
+        "deliverables/generation-1/TALLY.md"
+      ],
+      "depends_on": [
+        "strategist-runs"
+      ],
+      "acceptance": [
+        "Every merge in aliases.json names the required solution the merged keys share.",
+        "The top 3 are ranked by distinct support, then mean impact x confidence, and each is labeled majority or majority-like.",
+        "Unselected findings appear in the recurring table, and the answer-key comparison is added after the decision."
+      ]
+    },
+    {
+      "id": "integration-build",
+      "team": "integration",
+      "title": "Integrate the consensus",
+      "instructions": "Complete the reconciliation section of the drafted integrator brief, create the integrator worktree, and have the integrator build one coherent change from the verified source commits. Minority work stays excluded.",
+      "inputs": [
+        "deliverables/generation-1/TALLY.md",
+        "templates/integrator-brief.md",
+        "docs/playbook.md"
+      ],
+      "outputs": [
+        "deliverables/generation-1/INTEGRATION.md"
+      ],
+      "depends_on": [
+        "consensus-tally"
+      ],
+      "acceptance": [
+        "Each consensus feature is delivered or its absence explained, with the source commits used.",
+        "Tests cover each feature and how they interact, and the integrator reports every verify command passing at its final commit.",
+        "No excluded minority change is included."
+      ]
+    },
+    {
+      "id": "independent-verification",
+      "team": "verification-and-safety",
+      "title": "Verify independently, audit, then fast-forward",
+      "instructions": "Re-run every verify command at the integrator's exact commit with baseline --at and the label g1-verify, rerunning a load-sensitive failure once, and run audit g1. Only when both pass, fast-forward the integration branch with a fast-forward-only local command.",
+      "inputs": [
+        "deliverables/generation-1/INTEGRATION.md",
+        "deliverables/baseline/baseline-g0.json",
+        "docs/safety.md"
+      ],
+      "outputs": [
+        "deliverables/generation-1/verification.md"
+      ],
+      "depends_on": [
+        "integration-build"
+      ],
+      "acceptance": [
+        "The verification ran at the commit that was fast-forwarded, and every command passed.",
+        "The audit since marker g1 is clean.",
+        "The integration branch moved by fast-forward only; main and every strategist branch are unchanged."
+      ]
+    },
+    {
+      "id": "review-and-receipts",
+      "team": "owner-desk",
+      "title": "Record generation 1 in the review",
+      "instructions": "Run record 1 with the fast-forwarded commit and a plain summary. Confirm that the receipts are read-only snapshots with digests, and that the living review shows the decision, the verification, kept branches, recurring problems and how to switch back.",
+      "inputs": [
+        "deliverables/generation-1/verification.md",
+        "deliverables/generation-1/TALLY.md",
+        "templates/review.md"
+      ],
+      "outputs": [
+        "deliverables/review/REVIEW-g1.md",
+        "deliverables/review/receipts-g1.json"
+      ],
+      "depends_on": [
+        "independent-verification"
+      ],
+      "acceptance": [
+        "record succeeded only after verification and the audit, and history.md gained the generation.",
+        "Each receipt is read-only, and its SHA-256 matches its bytes.",
+        "The living review is never referenced as a receipt."
+      ]
+    },
+    {
+      "id": "owner-request-drill",
+      "team": "owner-desk",
+      "title": "Drill an owner request outside the vote",
+      "instructions": "Act out a small owner request on the practice target, for example machine-readable list output. Start the implementer from the pre-generation base to rehearse moving onto a newer head: rebase or cherry-pick onto the current integration head, resolve conflicts without overwriting integrated work, verify at the new commit, audit, fast-forward, and record it with request.",
+      "inputs": [
+        "deliverables/review/REVIEW-g1.md",
+        "deliverables/generation-1/verification.md",
+        "docs/playbook.md"
+      ],
+      "outputs": [
+        "deliverables/owner-requests/request-drill.md"
+      ],
+      "depends_on": [
+        "review-and-receipts"
+      ],
+      "acceptance": [
+        "The request lands on the newest integration head without reverting any generation-1 change.",
+        "It is verified and audited like an integration and recorded in history.md.",
+        "The owner is told what changed and exactly how to switch back."
+      ]
+    },
+    {
+      "id": "generation-2-plan",
+      "team": "strategy-library",
+      "title": "Plan generation 2",
+      "instructions": "Record a fresh baseline at the new head, plan generation 2 with the extended history, and render its briefs. Check that no generation-1 strategy is reused and that the recurring table and the owner request appear where they should.",
+      "inputs": [
+        "deliverables/review/REVIEW-g1.md",
+        "deliverables/owner-requests/request-drill.md",
+        "deliverables/strategy/pool-review.md"
+      ],
+      "outputs": [
+        "deliverables/generation-2/plan-review.md"
+      ],
+      "depends_on": [
+        "owner-request-drill"
+      ],
+      "acceptance": [
+        "Generation 2 starts from the current integration head with a fresh, passing baseline.",
+        "None of its eight lenses was used in generation 1.",
+        "The rendered briefs quote generation 1 and the owner request in their history."
+      ]
+    },
+    {
+      "id": "continuous-runbook",
+      "team": "orchestration",
+      "title": "Write the continuous-operation runbook",
+      "instructions": "Write the runbook for leaving the loop running on this machine: the loop the host follows, checking status before every step, CPU priority and timeouts, how the owner stops it, and how to resume. Rehearse an interruption on the practice project: make status report dead strategists, run resume, and plan the generation again.",
+      "inputs": [
+        "deliverables/generation-2/plan-review.md",
+        "deliverables/setup/improver.config.json",
+        "docs/playbook.md",
+        "docs/safety.md"
+      ],
+      "outputs": [
+        "deliverables/operations/continuous-runbook.md"
+      ],
+      "depends_on": [
+        "generation-2-plan"
+      ],
+      "acceptance": [
+        "The runbook gives exact commands for status, stop and resume, and says what the host does when STOP appears.",
+        "The rehearsal shows dead strategists detected, the generation archived as interrupted, and the same strategies planned again from the current head.",
+        "Nothing is pushed or published, and the owner's live software is never touched."
+      ]
+    }
+  ],
+  "files": [
+    "README.md",
+    "LICENSE.txt",
+    "docs/playbook.md",
+    "docs/safety.md",
+    "docs/consensus.md",
+    "templates/strategist-brief.md",
+    "templates/integrator-brief.md",
+    "templates/review.md",
+    "templates/report.md",
+    "data/strategy-pool.json",
+    "data/improver.config.example.json",
+    "data/improver.config.schema.json",
+    "reference/improver.py",
+    "reference/test_improver.py",
+    "target/shelf.py",
+    "target/test_shelf.py",
+    "target/README.md",
+    "target/ANSWER-KEY.md"
+  ],
+  "related_seeds": [
+    "open-source-infrastructure-foundation",
+    "applied-invention-lab"
+  ]
+}

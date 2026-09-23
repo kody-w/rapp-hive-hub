@@ -1,0 +1,41 @@
+{
+  "schema": "improver-config/1",
+  "project": {
+    "name": "Practice Shelf",
+    "path": "practice-shelf",
+    "context": "Practice Shelf is a tiny command-line bookmark keeper written in the Python standard library. People add, list, remove, export and import web links; the shelf is one JSON file under the user's home directory. It is deliberately imperfect practice material for this loop. What matters most: never lose or corrupt a person's links, tell the truth about every outcome, and stay small and dependency-free.",
+    "surfaces": ["cli", "library", "data"],
+    "base_branch": "main",
+    "integration_branch": "improve/integration",
+    "branch_prefix": "improve"
+  },
+  "state_dir": "improver-state",
+  "strategists": 8,
+  "seed": "practice-shelf-1",
+  "focus": {
+    "text": "",
+    "prefer_tags": []
+  },
+  "verify": [
+    {
+      "name": "unit",
+      "run": ["python3", "-B", "-m", "unittest", "-v", "test_shelf"],
+      "cwd": ".",
+      "timeout_seconds": 300,
+      "hermetic_home": true
+    },
+    {
+      "name": "cli-smoke",
+      "run": ["python3", "-B", "shelf.py", "--version"],
+      "cwd": ".",
+      "timeout_seconds": 60,
+      "hermetic_home": true
+    }
+  ],
+  "harness": null,
+  "protected_paths": ["~/.practice-shelf"],
+  "live_ports": [],
+  "clear_env_prefixes": ["PRACTICE_SHELF_"],
+  "stale_minutes": 30,
+  "nice": 10
+}
