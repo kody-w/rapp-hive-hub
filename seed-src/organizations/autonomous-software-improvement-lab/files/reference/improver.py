@@ -1332,7 +1332,10 @@ def render_tally(plan: dict[str, Any], result: dict[str, Any],
             "| Rank | Key | Support | Strategists | In Top 3 of | Mean I x C | Implemented by |"
             " Status |", "|---|---|---|---|---|---|---|---|"]
     for c in result["clusters"]:
-        status = "majority" if c["majority"] else "minority"
+        if c["majority"]:
+            status = "majority"
+        else:
+            status = "majority-like" if c["key"] in result["top3"] else "minority"
         if c["key"] in result["top3"]:
             status += ", TOP 3"
         implementers = ", ".join(f"{s} ({v})" for s, v in c["implemented_by"].items()) or "-"
