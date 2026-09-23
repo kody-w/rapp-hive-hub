@@ -487,9 +487,9 @@ export async function checkStaticSurface({ root, manifestPath }) {
     "Join instructions do not select the canonical laboratory camera card"
   );
   const seedsIndex = jsonDocuments.get(`${manifest.build.apiPath}/organization-seeds.json`);
-  assert(seedsIndex?.count === 10 && seedsIndex.seeds.length === 10, "Expected exactly ten seeds");
+  assert(seedsIndex?.count === 11 && seedsIndex.seeds.length === 11, "Expected exactly eleven seeds");
   assert(
-    new Set(seedsIndex.seeds.map((seed) => seed.slug)).size === 10,
+    new Set(seedsIndex.seeds.map((seed) => seed.slug)).size === 11,
     "Organization seed identities are not unique"
   );
   const homeHtml = (await readPublicFile(resolvedRoot, "hub/index.html")).toString("utf8");
