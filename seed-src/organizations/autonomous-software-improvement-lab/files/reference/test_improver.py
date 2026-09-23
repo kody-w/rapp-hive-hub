@@ -258,7 +258,7 @@ class BaselineTests(KitTestCase):
     def test_baseline_is_hermetic_and_records_failures(self) -> None:
         probe = ("import os, pathlib; "
                  "pathlib.Path(os.environ['HOME'], 'written-by-test.txt').write_text('x'); "
-                 "print('secret visible:', 'KITTEST_TOKEN' in os.environ)")
+                 "print('cleared variable visible:', 'KITTEST_TOKEN' in os.environ)")
         self.ws.config_data["verify"] = [
             {"name": "writes-home", "run": [sys.executable, "-B", "-c", probe]},
             {"name": "fails", "run": [sys.executable, "-B", "-c", "raise SystemExit(4)"]},
@@ -278,7 +278,7 @@ class BaselineTests(KitTestCase):
         first, second = record["results"]
         self.assertTrue(first["passed"])
         self.assertIn("written-by-test.txt", first["home_writes"])
-        self.assertIn("secret visible: False", "\n".join(first["tail"]))
+        self.assertIn("cleared variable visible: False", "\n".join(first["tail"]))
         self.assertFalse((real_home / "written-by-test.txt").exists())
         self.assertEqual((second["passed"], second["exit_code"]), (False, 4))
         self.assertFalse(record["passed"])
