@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+- Added the generic First-Party Rapplication Company organization seed:
+  seven scoped teams and separate casework, a configurable founder-CEO charter,
+  craftsmanship and promotion templates, and a synthetic checklist case.
+- Included an inert stage/gate specification, an acceptance-linked task DAG,
+  and a tested offline command reference. Independent verification, a separate
+  decision receipt, nested privacy and license review, and owner-only PR merge
+  remain explicit gates; no running company or authenticated authority is claimed.
+- Regenerated the public-only catalog, exact package inventory, deterministic
+  ZIP, join cards, QR codes, and release inventory for twelve starters.
+- Gave the shared keyboard-focus outline at least 3:1 contrast across light
+  and dark surfaces, with automated contrast coverage. Seed footers now label
+  the fixed build epoch without implying fresh verification, and the checklist
+  reference explains its exact identifier grammar with a valid example.
+
 ## 0.1.1 - 2026-09-18
 
 - Added protocol-neutral `hive-hub-chant/1` with deterministic seven-word

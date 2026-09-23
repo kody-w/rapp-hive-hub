@@ -8,13 +8,19 @@ The RAPP-focused version of [Hive Hub](https://github.com/kody-w/hive-hub):
 find a RAPP Work organization starter, verify its exact package and protocol,
 then plan native Organizations and Workspaces with the AI you already use.
 
-Ten downloadable starters include the One-Person Conglomerate, Enterprise
+Twelve downloadable starters include the One-Person Conglomerate, Enterprise
 Transformation Firm, Product Launch Company, Open-Source Infrastructure
 Foundation, Applied Invention Lab, Independent Game Studio, Micro-Manufacturing
-Company, Public-Source Intelligence Bureau, Turnaround Firm, and Federation
-Prime Contractor. Each includes scoped teams, a synthetic case, original
-artifacts, dependency-linked tasks, a deterministic ZIP, and a verified join card.
+Company, Public-Source Intelligence Bureau, Turnaround Firm, Federation
+Prime Contractor, AI Video Studio, and First-Party Rapplication Company. Each includes scoped
+teams, a synthetic case, original artifacts, dependency-linked tasks, a
+deterministic ZIP, and a verified join card.
 These are **starter packages, not running agents or activated companies**.
+
+The [First-Party Rapplication Company](https://kody-w.github.io/rapp-hive-hub/hub/seeds/first-party-rapplication-company/)
+adds seven teams, a configurable founder-CEO charter, a chat-operated checklist
+reference, and an evidence-gated internal-use-to-public-PR pipeline. Independent
+verification and a separate decision are required; only the owner merges.
 
 ## Start with an outcome
 
