@@ -123,7 +123,7 @@ test("generated surface passes links, hashes, security, and accessibility gates"
   const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
   assert.equal(result.inputCount, manifest.entries.length);
   assert.ok(result.immutableObjectCount >= 9);
-  assert.equal(result.qrCount, 22);
+  assert.equal(result.qrCount, 24);
 });
 
 test("RAPP distribution leads with a real seed and publishes its own entry points", async () => {
@@ -560,7 +560,7 @@ test("organization join verifies the exact package and refuses a different seed"
     document: JSON.parse(await readFile(path.join(buildA, card.descriptor.path), "utf8"))
   })));
   const seedCards = publishedCards.filter((card) => card.document.seed);
-  assert.equal(seedCards.length, 10);
+  assert.equal(seedCards.length, 11);
   const selected = seedCards[0];
   const joinScript = await readFile(path.join(buildA, "hub/join/join.js"), "utf8");
   for (const tampered of [false, true]) {

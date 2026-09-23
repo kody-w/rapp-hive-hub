@@ -1143,7 +1143,7 @@ Generic upstream: https://github.com/kody-w/hive-hub
 - hashes.json validates generated public files.
 - offline-seed.json carries immutable essentials for offline inspection.
 - receipts/index.json names an append-only content-addressed receipt chain.
-- organization-seeds.json lists ten real downloadable organization starter packages with team workspaces, case inputs, task dependencies, and original artifacts.
+- organization-seeds.json lists eleven real downloadable organization starter packages with team workspaces, case inputs, task dependencies, and original artifacts.
 - Seed JSON and ZIP contents are inert. A seed is not an activated organization or running agent. Initialize only with the exact locally trusted RAPP Work SDK and owner-approved native plans.
 - The hive-network SKILL.md is a complete host-operated workflow for discovery, local work, and separately approved public contributions. It grants no authority and cannot add capabilities to a browser-only AI.
 
