@@ -404,6 +404,7 @@ def update_manifest(
         "release",
         "skill-declaration",
         "organization-seed",
+        "organization-seed-boot",
     }
     entries = [
         entry
@@ -411,6 +412,7 @@ def update_manifest(
         if entry["kind"] not in generated_kinds
         and entry["id"] != "hive-hub-public-lab-learning-example"
         and entry["id"] != "hive-network-global-skill"
+        and entry["id"] != "seed-boot-hatcher"
         and entry["id"] not in {f"seed-{slug}" for slug in SEED_SLUGS}
         and not entry["id"].startswith("rapp-work-organization-seed-")
     ]
@@ -419,6 +421,7 @@ def update_manifest(
             manifest_entry(
                 "hive-network-global-skill", "source-archive", "skills/hive-network.json"
             ),
+            manifest_entry("seed-boot-hatcher", "source-archive", "boot/hatch-seed.json"),
             manifest_entry(
                 "hive-hub-release-0.1.1",
                 "release",
@@ -472,6 +475,11 @@ def update_manifest(
                     f"organization-seed-{slug}",
                     "organization-seed",
                     f"organization-seeds/{slug}.json",
+                ),
+                manifest_entry(
+                    f"organization-seed-boot-{slug}",
+                    "organization-seed-boot",
+                    f"organization-seed-boots/{slug}.json",
                 ),
                 manifest_entry(f"seed-{slug}", "record", f"records/seed-{slug}.json"),
                 manifest_entry(

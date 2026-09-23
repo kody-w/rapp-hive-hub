@@ -15,6 +15,12 @@
   and dark surfaces, with automated contrast coverage. Seed footers now label
   the fixed build epoch without implying fresh verification, and the checklist
   reference explains its exact identifier grammar with a valid example.
+- Every catalog organization seed now ships a Brainstem boot: a deterministic
+  RAPP/1 organism Egg (`rapp-seed-boot/1`) with the exact seed record, a soul,
+  and the generic SeedRunner organ, published beside the seed with a plan-first
+  hatcher (`hub/boot/hatch_seed.py`) and a boot section on each seed page.
+- Added `scripts/seed_boot.py` (`pin`, `build [--check]`, `prove`) and
+  conformance tests binding every boot Egg to its published seed.
 
 ## 0.1.1 - 2026-09-18
 
