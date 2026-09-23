@@ -9,6 +9,10 @@ kit zone for one board beat. All of them follow the same rules:
   anchor tween (`tl.to({}, { duration: D }, 0)`) makes the timeline span the
   beat.
 - **On brand**: colours and fonts come from the kit's CSS variables only.
+- **Offline fonts**: every family you name needs a local `@font-face` (the kit's
+  fonts in `assets/fonts/`), and fallbacks stay generic (`serif`, `sans-serif`,
+  `monospace`). The HyperFrames CLI downloads any named family that has no
+  local `@font-face` from Google Fonts at render time.
 - **Placed**: the overlay's root element carries `data-zone="<zone>"` and is
   positioned inside that zone's box. Never the face zone or the platform-safe
   areas.
