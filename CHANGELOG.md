@@ -11,6 +11,10 @@
   remain explicit gates; no running company or authenticated authority is claimed.
 - Regenerated the public-only catalog, exact package inventory, deterministic
   ZIP, join cards, QR codes, and release inventory for twelve starters.
+- Gave the shared keyboard-focus outline at least 3:1 contrast across light
+  and dark surfaces, with automated contrast coverage. Seed footers now label
+  the fixed build epoch without implying fresh verification, and the checklist
+  reference explains its exact identifier grammar with a valid example.
 
 ## 0.1.1 - 2026-09-18
 

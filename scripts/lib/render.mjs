@@ -234,7 +234,7 @@ export function renderOrganizationSeedHtml({ seed, card, generatedAt }) {
         <p>No private membership, signing, spending, external communication, publication, or federation activation is granted by this seed.</p>
       </section>
     </main>
-    <footer><p>Static public seed snapshot: <time datetime="${escapeHtml(generatedAt)}">${escapeHtml(generatedAt)}</time>. <a href="../../#organizations">Back to all organization seeds</a>.</p></footer>
+    <footer><p>Reproducibility/build epoch: <time datetime="${escapeHtml(generatedAt)}">${escapeHtml(generatedAt)}</time>. This fixed value is not a verification or publication time. <a href="../../#organizations">Back to all organization seeds</a>.</p></footer>
   </body>
 </html>
 `;
@@ -713,7 +713,7 @@ a:focus-visible,
 button:focus-visible,
 summary:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #ffbf47;
+  outline: 3px solid #ac7a00;
   outline-offset: 3px;
 }
 

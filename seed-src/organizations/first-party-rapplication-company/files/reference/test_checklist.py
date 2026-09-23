@@ -61,10 +61,19 @@ class ChecklistTests(unittest.TestCase):
         self.assertEqual(unchanged, state)
 
     def test_identifier_bounds(self) -> None:
-        for identifier in ["UPPER", "1start", "-start", "with_underscore", "a" * 33]:
+        for identifier in ["UPPER", "1start", "-start", "with_underscore", "a.b", "\u00e9", "a" * 33]:
             with self.subTest(identifier=identifier):
-                self.assertEqual(respond([], f"add {identifier} Text")[1]["status"], "refused")
-        self.assertEqual(respond([], f"add {'a' * 32} Text")[1]["status"], "ok")
+                state, reply = respond([], f"add {identifier} Text")
+                self.assertEqual(state, [])
+                self.assertEqual(reply["status"], "refused")
+                self.assertIn("[a-z][a-z0-9-]{0,31}", reply["message"])
+                self.assertIn("start with a lowercase ASCII letter", reply["message"])
+                self.assertIn("then use only lowercase ASCII letters, digits, or hyphens", reply["message"])
+                self.assertIn("1-32 characters", reply["message"])
+                self.assertIn("Example: item-1.", reply["message"])
+        for identifier in ["a", "item-1", "a" * 32]:
+            with self.subTest(identifier=identifier):
+                self.assertEqual(respond([], f"add {identifier} Text")[1]["status"], "ok")
 
     def test_item_count_limit(self) -> None:
         state = []
@@ -87,6 +96,8 @@ class ChecklistTests(unittest.TestCase):
         self.assertEqual(state, [])
         self.assertEqual(reply["message"], HELP)
         self.assertIn("cannot publish, sign, or merge", reply["message"])
+        self.assertIn("[a-z][a-z0-9-]{0,31}", reply["message"])
+        self.assertIn("Example: item-1.", reply["message"])
 
     def test_determinism(self) -> None:
         expected = respond([], "add sample Inspect")

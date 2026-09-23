@@ -11,8 +11,14 @@ MAX_ITEMS = 50
 MAX_TEXT = 120
 MAX_MESSAGE = 256
 IDENTIFIER = re.compile(r"[a-z][a-z0-9-]{0,31}")
+IDENTIFIER_GUIDANCE = (
+    "Use an ID matching [a-z][a-z0-9-]{0,31}: start with a lowercase ASCII letter, "
+    "then use only lowercase ASCII letters, digits, or hyphens (1-32 characters). "
+    "Example: item-1."
+)
 HELP = (
     "Use: list | add <id> <text> | done <id> | help. "
+    f"{IDENTIFIER_GUIDANCE} "
     "Items exist only in this process. I cannot publish, sign, or merge."
 )
 
@@ -75,7 +81,7 @@ def respond(
     if len(parts) == 3 and parts[0] == "add":
         identifier, text = parts[1], parts[2]
         if IDENTIFIER.fullmatch(identifier) is None or not _text_valid(text):
-            return answer("refused", "Use a lowercase ID of 1-32 characters and printable text of 1-120 characters.")
+            return answer("refused", f"{IDENTIFIER_GUIDANCE} Use printable text of 1-120 characters.")
         if any(item["id"] == identifier for item in state):
             return answer("refused", "That ID already exists. Choose another ID; no item was changed.")
         if len(state) == MAX_ITEMS:

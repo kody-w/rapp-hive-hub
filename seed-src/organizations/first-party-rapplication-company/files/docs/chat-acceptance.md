@@ -5,8 +5,10 @@ fixed grammar; it does not understand arbitrary natural language. A future
 approved adapter may translate intent, but must preserve validation and effect
 boundaries and must not pretend it already exists.
 
-Proposed reference budget: at most 50 items, 32-character lowercase identifiers,
-120-character item text, and 256-character input messages. The actual host's
+Proposed reference budget: at most 50 items, identifiers matching
+`[a-z][a-z0-9-]{0,31}` (a lowercase ASCII letter first, then lowercase ASCII
+letters, digits or hyphens; for example `item-1`), 120-character item text,
+and 256-character input messages. The actual host's
 latency and accessibility must be measured separately. Agree host budgets in
 the product specification before implementation; no measured latency is supplied.
 
