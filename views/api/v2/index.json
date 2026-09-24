@@ -58,10 +58,10 @@
       "kind": "hive",
       "slug": "rapp-hive",
       "name": "The RAPP Hive",
-      "status": "planned",
+      "status": "experimental",
       "protocol": "hive-md",
-      "chant": "zephyr-nettle-haven-wren-rushes-dell-trench",
-      "sha256": "2ca17f2a25e2d834b76f6f02aca051a8ff1de1be5e3cbfd8e9f6d532d514f9f3",
+      "chant": "heron-wold-pond-cove-reed-jade-yarrow",
+      "sha256": "1bdb6e7b3ee8abb73008fc585268933f242c58ea5bd75a6b89e96020e7568d85",
       "path": "cards/hives/rapp-hive.md",
       "json": "api/v2/hives/rapp-hive.json",
       "page": "site/hives/rapp-hive.html"

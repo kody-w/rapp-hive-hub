@@ -11,6 +11,7 @@ fjord-pond-fenlark-ford-sedge-beacon-briar  starter/ai-video-studio  sha256:caee
 flint-gully-kestrel-atlas-tor-larch-granite  starter/one-person-conglomerate  sha256:321a0ff9f2388ceb8c4e931508d44ac0176637861ad10eb8548b6ba31e349604
 ford-thorn-quartz-moss-grove-ivy-flint  starter/public-source-intelligence-bureau  sha256:644082396567b2c0585f70e0d78b53f8a565b865958c87a764aa84a9ed44a4a5
 granite-quiver-ebb-sedge-birch-granite-wold  starter/applied-invention-lab  sha256:0cd56371c60cdb4558f93c5496e2633bfb9001791f81dfe1a13300b688a21f57
+heron-wold-pond-cove-reed-jade-yarrow  hive/rapp-hive  sha256:1bdb6e7b3ee8abb73008fc585268933f242c58ea5bd75a6b89e96020e7568d85
 hollow-yarrow-amber-verge-moss-petrel-steppe  organization/ai-video-studio  sha256:812b905a3923579d548776c129219b9a50e45616c1019d9e8c9d66f922ee7b4c
 ivy-gully-shale-nook-mesa-knoll-zeal  starter/enterprise-transformation-firm  sha256:671a266cd19e78777a726999bc60f995e718541cbe12fde86e5be4a50a3ebb1a
 knoll-pine-ridge-gorse-nettle-bluff-fathom  organization/first-party-rapplication-company  sha256:1ebcd633a1e08bc4950b17e0f6e6be75db674f99ca99523fdde89badaa076978
@@ -30,4 +31,3 @@ tarn-zephyr-vetch-aspen-willow-cinder-larch  protocol/rapp-hive/2  sha256:a7ac42
 ursa-hollow-glade-wren-ester-nettle-zeal  organization/one-person-conglomerate  sha256:5981cbaa49a17871c157370b94d88d6b136416cd9e5ffe77fbfe899f2d9cb9bc
 verge-jasper-hazel-mesa-zenith-umber-umber  organization/turnaround-firm  sha256:da4eb451de282886903d153c3a179c9313cc0add303325a8cd93684b8b187923
 willow-yield-ford-fenlark-beacon-marrow-quartz  organization/micro-manufacturing-company  sha256:8a7764997a0502288984dfdfba81f3422e6ad11fd90496c46b5680ff0adfd0a4
-zephyr-nettle-haven-wren-rushes-dell-trench  hive/rapp-hive  sha256:2ca17f2a25e2d834b76f6f02aca051a8ff1de1be5e3cbfd8e9f6d532d514f9f3

@@ -89,9 +89,11 @@ class StarterCardTests(unittest.TestCase):
                 self.assertIn("grants nothing", body)
 
     def test_hive_cards_are_honest(self) -> None:
-        planned = self.cards[("hive", "rapp-hive")].fields
-        self.assertEqual((planned["status"], planned["protocol"]), ("planned", "hive-md"))
-        self.assertFalse({"hive", "root", "founder", "address"} & set(planned))
+        rapp = self.cards[("hive", "rapp-hive")].fields
+        self.assertEqual((rapp["status"], rapp["protocol"]), ("experimental", "hive-md"))
+        self.assertTrue({"hive", "root", "founder", "public_copy"} <= set(rapp))
+        self.assertNotIn("address", rapp)  # no published shared copy, so nobody can join yet
+        self.assertIn("no join requests", rapp["channel"])
         contoso = self.cards[("hive", "contoso-model-hive")].fields
         self.assertEqual(contoso["status"], "experimental")
         self.assertIn("no live shared copy", contoso["channel"])

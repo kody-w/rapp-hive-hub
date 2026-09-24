@@ -2,14 +2,18 @@
   "kind": "hive",
   "slug": "rapp-hive",
   "path": "cards/hives/rapp-hive.md",
-  "sha256": "2ca17f2a25e2d834b76f6f02aca051a8ff1de1be5e3cbfd8e9f6d532d514f9f3",
-  "chant": "zephyr-nettle-haven-wren-rushes-dell-trench",
+  "sha256": "1bdb6e7b3ee8abb73008fc585268933f242c58ea5bd75a6b89e96020e7568d85",
+  "chant": "heron-wold-pond-cove-reed-jade-yarrow",
   "frontmatter": {
     "card": "hive",
     "name": "The RAPP Hive",
     "protocol": "hive-md",
-    "status": "planned",
-    "channel": "None yet. The RAPP Hive is planned, has no shared copy and takes no requests."
+    "status": "experimental",
+    "hive": "af02504304365b6d8b068553156b5e6d",
+    "root": "7effcf1a6bd57306c196f86a42d8de79bd1222b7",
+    "founder": "SHA256:ehynTG2oD/bKfWt/5c5mqGA50BNgE5ihQqvTv8hIAe4",
+    "public_copy": "https://github.com/kody-w/rapp-hive-public/tree/f12a66ce511ff5d6a3620d0217bb051d5f89b0aa",
+    "channel": "None yet. The RAPP Hive has no published shared copy, so it takes no join requests."
   },
-  "body": "The RAPP project's own public example Hive, planned in the organism map as a folder Hive where the\nmaintainers are the members and AIs are tools. Its rooms would hold one canonical fact per file, one\ndrift verdict per repository, the layer map and one file per gap, with every estate repository as a\nread-only reference. It has no Hive id, root commit or founder yet, so nobody can join it.\n"
+  "body": "The RAPP project's own public example Hive, run as a folder Hive where the maintainers are the\nmembers and AIs are tools. Its rooms hold one canonical fact per file, one drift verdict per\nrepository, the layer map and one file per gap, with every estate repository as a read-only\nreference. Its first sweep covered 10 public repositories: 7 were compliant or clean and 3 showed drift.\n"
 }
