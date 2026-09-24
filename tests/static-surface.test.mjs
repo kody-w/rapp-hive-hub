@@ -332,7 +332,7 @@ test("RAPP publication preserves all upstream receipts and appends its own succe
   const index = JSON.parse(
     await readFile(path.join(buildA, "api/hive-hub/v1/receipts/index.json"), "utf8")
   );
-  assert.equal(index.receipts.length, 4);
+  assert.equal(index.receipts.length, 5);
   assert.deepEqual(index.receipts.slice(0, 3).map((receipt) => receipt.ref), [
     "sha256:49c0471db5f908478a18dbbcbf4363b0b93fc3722757a73378d14ddaea00f215",
     "sha256:7284d9ad13fec9c4fce9de793fe549d71f3bdd9303fd74c0c226da78de22d609",
@@ -361,8 +361,25 @@ test("RAPP publication preserves all upstream receipts and appends its own succe
   assert.deepEqual(publication.previous, index.receipts[2]);
   assert.equal(publication.event, "publish-rapp-distribution");
   assert.equal(publication.operation.sourceCommit, "1db94d2b1b5d9d4fb6f9d2865c3a2fe543875c31");
+  assert.ok(index.receipts[3].url.startsWith(siteBaseUrl + "/"), "this site's own receipt keeps its own URL");
   const featured = resultA.records.find((record) => record.document.aliases.includes("one-person-conglomerate"));
-  assert.deepEqual(publication.subject, featured.descriptor);
+  const seeds = JSON.parse(
+    await readFile(path.join(buildA, "api/hive-hub/v1/organization-seeds.json"), "utf8")
+  );
+  const [earlier] = seeds.seeds.find((seed) => seed.slug === "one-person-conglomerate").predecessors;
+  // The distribution receipt keeps naming the record it published; the successor receipt names
+  // the current record and links back to it.
+  assert.deepEqual(publication.subject, earlier.record);
+  assert.deepEqual(publication.card, earlier.card);
+  assert.notDeepEqual(publication.subject, featured.descriptor);
+  const successors = JSON.parse(
+    await readFile(path.join(buildA, index.receipts[4].path), "utf8")
+  );
+  assert.deepEqual(successors.previous, index.receipts[3]);
+  assert.equal(successors.event, "publish-seed-successors");
+  assert.equal(successors.operation.sourceCommit, "e579f9cea54d7c577189f45ed2309da322911b54");
+  assert.deepEqual(successors.subject, featured.descriptor);
+  assert.deepEqual(index.head, index.receipts[4]);
   assert.notDeepEqual(correction.card, migration.card);
 });
 

@@ -16,6 +16,18 @@ content-addressed learning bundle, conformance contract, and inert adapter
 registration. Chants, URLs, QR codes, repositories, and static APIs are
 locators—not authority.
 
+## Where this fits
+
+In the RAPP/1 organism, read bottom to top (0 RAPP/1, 1 Estate, 2 Organization,
+3 Hive, 4 your device, 5 Brainstem, 6 you), this protocol-neutral core is
+discovery and join across Hives: part of the Hive Mind beside layer 3
+(candidate). It locates and verifies what a Hive declares and decides nothing;
+transport carries, signatures decide. The RAPP Hive Hub's starters, their
+organism maps and their folder-Hive templates (experimental) are described in
+the [README](../README.md#where-this-fits) and
+[organization seeds](ORGANIZATION_SEEDS.md). `rapp-hive/2` is frozen as a
+research record.
+
 ## Guarantees
 
 - Canonical UTF-8 JSON and `urn:hivehub:sha256:<64hex>` content addresses.
@@ -387,6 +399,14 @@ authority.
 The generic Hub core remains protocol-neutral. Seed data is an optional public
 example layer, not a replacement RAPP runtime. See
 [the package and initialization guide](ORGANIZATION_SEEDS.md).
+
+Each package also carries `ORGANISM.md`, which names the layers the starter
+touches, and `folder-hive/`, an inert folder-Hive template (experimental) that a
+founder's Brainstem turns into a Hive with the Hive agent. Adding them left every
+earlier package file's bytes unchanged but gave each starter a successor record;
+the earlier records, cards, declarations, seed documents and ZIPs stay byte-exact
+at their content addresses, outside the active dialbook, and the seed index
+lists them as `predecessors`.
 
 The [standalone global skill](../skills/hive-network/SKILL.md) is one file a person
 can give to their existing AI. It guides local use and reviewed contributions

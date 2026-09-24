@@ -502,8 +502,12 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
       `${apiPath}/receipts/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
     const stored = await writer.write(outputPath, entry.bytes);
     assert(stored.digest === entry.digest, `${entry.path} historical receipt hash changed`);
+    // A receipt keeps the site that published it: upstream receipts and this site's own.
+    const receiptSite = String(entry.document.$schema ?? "").startsWith(`${siteBaseUrl}/`)
+      ? siteBaseUrl
+      : UPSTREAM_SITE_URL;
     const object = contentObject("receipt", entry.declaration.id, {
-      descriptor: descriptorFor(outputPath, entry.digest, UPSTREAM_SITE_URL),
+      descriptor: descriptorFor(outputPath, entry.digest, receiptSite),
       digest: entry.digest,
       document: entry.document
     });
@@ -511,7 +515,26 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
     immutableObjects.push(object);
   }
 
+  // Superseded seed publications stay resolvable: every object, including each seed document and
+  // its ZIP (kept as bounded base64 chunks), is written back byte for byte.
+  const historicalSeeds = [];
+  const historicalSeedCards = [];
+  const historicalArchives = new Set();
   for (const entry of grouped.get("historical-object")) {
+    if (entry.document.kind === "historical-seed-archive") {
+      const archive = entry.document;
+      const bytes = Buffer.from(archive.base64Chunks.join(""), "base64");
+      assert(
+        archive.mediaType === "application/zip" && /^[a-f0-9]{64}$/.test(archive.sha256) &&
+        bytes.length === archive.bytes && sha256Bytes(bytes) === archive.sha256 &&
+        bytes.toString("base64") === archive.base64Chunks.join(""),
+        `${entry.path} historical seed archive does not match its commitment`
+      );
+      const archivePath = `${apiPath}/seeds/downloads/sha256/${archive.sha256.slice(0, 2)}/${archive.sha256}.zip`;
+      await writer.write(archivePath, bytes);
+      historicalArchives.add(archivePath);
+      continue;
+    }
     let outputPath;
     if (entry.declaration.id.startsWith("historical-core-card-")) {
       assert(entry.document.kind === "ai-join-card", `${entry.path} is not a core card`);
@@ -522,6 +545,14 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
     } else if (entry.document.kind === "dial-record") {
       const bucket = selectBucket(manifest.buckets, entry.digest);
       outputPath = `${apiPath}/records/sha256/${bucket.id}/${entry.digest}.json`;
+    } else if (entry.document.kind === "organization-seed") {
+      assert(
+        entry.document.status === "seed-not-activated" &&
+        entry.document.activation?.grantsAuthority === false &&
+        typeof entry.document.archive?.path === "string",
+        `${entry.path} is not an inert published seed document`
+      );
+      outputPath = `${apiPath}/seeds/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
     } else if (entry.document.kind === "hive-hub-release") {
       outputPath = `${apiPath}/releases/sha256/${entry.digest.slice(0, 2)}/${entry.digest}.json`;
     } else if (entry.document.schema === "hive-hub-declaration/1") {
@@ -539,12 +570,23 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
     }
     const stored = await writer.write(outputPath, entry.bytes);
     assert(stored.digest === entry.digest, `${entry.path} historical object hash changed`);
-    immutableObjects.push(
-      contentObject("historical-object", entry.declaration.id, {
-        descriptor: descriptorFor(outputPath, entry.digest, siteBaseUrl),
-        digest: entry.digest,
-        document: entry.document
-      })
+    const historical = contentObject("historical-object", entry.declaration.id, {
+      descriptor: descriptorFor(outputPath, entry.digest, siteBaseUrl),
+      digest: entry.digest,
+      document: entry.document
+    });
+    if (entry.document.kind === "ai-join-card" && entry.document.seed) {
+      historicalSeedCards.push(historical);
+    }
+    if (entry.document.kind === "organization-seed") {
+      historicalSeeds.push({ ...historical, archive: entry.document.archive });
+    }
+    immutableObjects.push(historical);
+  }
+  for (const seed of historicalSeeds) {
+    assert(
+      historicalArchives.has(seed.archive.path),
+      `Historical seed ${seed.document.slug} has no byte-exact ZIP`
     );
   }
 
@@ -1001,8 +1043,31 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
   const seedCards = [...organizationSeeds.values()].map((seed) => {
     const card = cards.find((candidate) => candidate.document.seed?.ref === seed.descriptor.ref);
     assert(card, "Every organization seed requires its own verified join card");
-    return { seed, card };
+    const predecessors = historicalSeeds
+      .filter((earlier) => earlier.document.slug === seed.document.slug)
+      .map((earlier) => {
+        const earlierCard = historicalSeedCards.find(
+          (candidate) => candidate.document.seed?.ref === earlier.descriptor.ref
+        );
+        assert(earlierCard, `Predecessor of ${seed.document.slug} has no byte-exact join card`);
+        return {
+          status: "superseded-kept-byte-exact",
+          seed: earlier.descriptor,
+          archive: earlier.archive,
+          card: earlierCard.descriptor,
+          cameraAiCard: earlierCard.document.cameraAiCard,
+          record: earlierCard.document.record,
+          chant: earlierCard.document.chant.value
+        };
+      });
+    return { seed, card, predecessors };
   });
+  assert(
+    historicalSeeds.every((earlier) =>
+      seedCards.some(({ predecessors }) =>
+        predecessors.some((item) => item.seed.ref === earlier.descriptor.ref))),
+    "A predecessor seed belongs to no current catalog seed"
+  );
   const seedsIndex = await writeStableJson(
     writer,
     `${apiPath}/organization-seeds.json`,
@@ -1010,7 +1075,7 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
       kind: "organization-seed-index",
       status: "seeds-not-activated",
       count: seedCards.length,
-      seeds: seedCards.map(({ seed, card }) => ({
+      seeds: seedCards.map(({ seed, card, predecessors }) => ({
         slug: seed.document.slug,
         name: seed.document.name,
         tagline: seed.document.tagline,
@@ -1024,6 +1089,13 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
         chant: card.document.chant.value,
         joinUrl: card.qrUrl,
         page: publicUrl(siteBaseUrl, `hub/seeds/${seed.document.slug}/`),
+        folderHive: {
+          root: seed.document.organism.folderHive.root,
+          health: seed.document.organism.folderHive.health,
+          files: seed.document.organism.folderHive.files,
+          hive: null
+        },
+        predecessors,
         boot: {
           document: seedBoots.get(seed.document.slug).descriptor,
           egg: seedBoots.get(seed.document.slug).egg,
@@ -1491,10 +1563,12 @@ export async function buildStaticSurface({ manifestPath, outDir }) {
       seedCards
     })
   );
-  for (const { seed, card } of seedCards) {
+  for (const { seed, card, predecessors } of seedCards) {
     await writer.write(
       `hub/seeds/${seed.document.slug}/index.html`,
-      renderOrganizationSeedHtml({ seed: seed.document, card, boot: seedBoots.get(seed.document.slug), hatcher, generatedAt })
+      renderOrganizationSeedHtml({
+        seed: seed.document, card, boot: seedBoots.get(seed.document.slug), hatcher, generatedAt, predecessors
+      })
     );
   }
   await writer.write("index.html", renderRootIndexHtml());

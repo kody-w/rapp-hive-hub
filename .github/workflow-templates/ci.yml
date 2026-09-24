@@ -32,8 +32,20 @@ jobs:
           ref: 591e014ad39e223b00ab343ae26e5d9a867ebeee
           path: .hive-hub/deps/rapp-1
           persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: kody-w/rapp-model-hive
+          ref: 2bd7c95152ede719b6418b80e2bdc2cd457bf711
+          path: .hive-hub/deps/rapp-model-hive
+          persist-credentials: false
       - name: Verify exact packages and native organization/workspace initialization
         run: python -B scripts/check_organization_seeds.py --exercise-native
+      - name: Folder-Hive templates against the pinned Hive folder convention
+        env:
+          PYTHONPATH: src:.
+        run: |
+          python -B scripts/folder_hive.py --check
+          python -B -m unittest tests.test_folder_hive -v
 
   python:
     name: Python ${{ matrix.python }}
@@ -59,6 +71,7 @@ jobs:
           tests.test_adapter_runtime
           tests.test_release_integration
           tests.test_organization_seeds
+          tests.test_folder_hive
           tests.test_shipped_examples
           tests.test_published_record_conformance
           tests.test_remote_dial

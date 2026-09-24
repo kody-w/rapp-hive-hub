@@ -5,6 +5,18 @@ client, or code executor. Public discovery has one explicit, lazily loaded
 stdlib HTTP client; ordinary local dialing and subscription planning remain
 offline. Explicit public-discovery planning performs a read-only snapshot GET.
 
+## Where this fits
+
+In the RAPP/1 organism, read bottom to top (0 RAPP/1, 1 Estate, 2 Organization,
+3 Hive, 4 your device, 5 Brainstem, 6 you), this protocol-neutral core is
+discovery and join across Hives: part of the Hive Mind beside layer 3
+(candidate). It locates and verifies what a Hive declares and decides nothing;
+transport carries, signatures decide. The RAPP Hive Hub's starters, their
+organism maps and their folder-Hive templates (experimental) are described in
+the [README](../README.md#where-this-fits) and
+[organization seeds](ORGANIZATION_SEEDS.md). `rapp-hive/2` is frozen as a
+research record.
+
 ## Authority boundaries
 
 - A locator is never proof of identity or authorization.

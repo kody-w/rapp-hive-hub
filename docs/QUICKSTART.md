@@ -7,6 +7,18 @@ public onboarding laboratory. This walkthrough finds it, verifies its full
 record, and saves a reversible subscription on your device. It does not run
 an agent, clone a repository, or grant membership.
 
+## Where this fits
+
+In the RAPP/1 organism, read bottom to top (0 RAPP/1, 1 Estate, 2 Organization,
+3 Hive, 4 your device, 5 Brainstem, 6 you), this protocol-neutral core is
+discovery and join across Hives: part of the Hive Mind beside layer 3
+(candidate). It locates and verifies what a Hive declares and decides nothing;
+transport carries, signatures decide. The RAPP Hive Hub's starters, their
+organism maps and their folder-Hive templates (experimental) are described in
+the [README](../README.md#where-this-fits) and
+[organization seeds](ORGANIZATION_SEEDS.md). `rapp-hive/2` is frozen as a
+research record.
+
 ## Before you start: the cold-start release is not live yet
 
 Checked 2026-09-19: the PyPI 0.1.1 wheel lacks `dial --from`, and the live

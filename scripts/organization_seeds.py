@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from scripts.file_integrity import read_regular_bytes  # noqa: E402
+from scripts.folder_hive import ROOM_ROOT, package_additions  # noqa: E402
 from scripts.update_agent_lock import canonical, digest  # noqa: E402
 
 SEED_SLUGS = (
@@ -422,6 +423,9 @@ def build_seed(slug: str, root: Path = ROOT) -> dict[str, Any]:
         )
     for relative, data in source_files.items():
         files[f"templates/casework/work/starter/{relative}"] = data
+    additions, organism = package_additions(blueprint, source_files, dependencies)
+    require(not set(additions) & set(files), "organism files must not replace package files")
+    files.update(additions)
     manifest = {
         "schema": "hive-hub-organization-seed-manifest/1",
         "slug": slug,
@@ -433,6 +437,8 @@ def build_seed(slug: str, root: Path = ROOT) -> dict[str, Any]:
         "workspace_profile": "rapp-work-sdk/1",
         "world_id": world,
         "initialize": "initialize.json",
+        "organism": "ORGANISM.md",
+        "folder_hive": {"root": ROOM_ROOT, "health": "experimental", "hive": None},
         "dependencies": dependencies,
         "related_seeds": blueprint["related_seeds"],
         "inventory": [
@@ -461,11 +467,13 @@ def build_seed(slug: str, root: Path = ROOT) -> dict[str, Any]:
         "case": blueprint["case"],
         "tasks": tasks,
         "relatedSeeds": blueprint["related_seeds"],
+        "organism": organism,
         "counts": {
             "teams": len(blueprint["teams"]),
             "workspaces": len(members),
             "tasks": len(tasks),
             "starterFiles": len(source_files),
+            "folderHiveFiles": organism["folderHive"]["files"],
             "packageFiles": len(files),
         },
         "blueprintSha256": digest(blueprint),

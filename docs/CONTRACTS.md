@@ -24,6 +24,18 @@ available through `hive_hub.get_schema(name)`. Every object schema sets
 `additionalProperties: false`; runtime validation also enforces semantic
 relationships that JSON Schema cannot express conveniently.
 
+## Where this fits
+
+In the RAPP/1 organism, read bottom to top (0 RAPP/1, 1 Estate, 2 Organization,
+3 Hive, 4 your device, 5 Brainstem, 6 you), this protocol-neutral core is
+discovery and join across Hives: part of the Hive Mind beside layer 3
+(candidate). It locates and verifies what a Hive declares and decides nothing;
+transport carries, signatures decide. The RAPP Hive Hub's starters, their
+organism maps and their folder-Hive templates (experimental) are described in
+the [README](../README.md#where-this-fits) and
+[organization seeds](ORGANIZATION_SEEDS.md). `rapp-hive/2` is frozen as a
+research record.
+
 ## Protocol and learning
 
 ### `conformance-contract`
@@ -135,7 +147,12 @@ both its closed-contract `card_id` and its web byte address before emitting
 the card references and QR. Canonical camera cards target the core client;
 only the explicit legacy card targets the older locked runner.
 Previously published receipt subjects remain byte-exact historical objects,
-outside the active dialbook. The conformance oracle checks every active
+outside the active dialbook. Superseded organization-seed publications follow
+the same rule: when a package gains files, its successor gets a new declaration,
+record and card, while the predecessor's record, cards, declaration, seed
+document and ZIP stay byte-exact at their content addresses (pinned in
+`seed-src/SEED_PREDECESSORS.json` and named by the successor declaration's
+`extensions.predecessor`). The conformance oracle checks every active
 record against the core; receipt and content-hash checks protect the archived
 publication without pretending it originally contained `coreRecord`.
 The all-card oracle also validates every emitted canonical camera card through

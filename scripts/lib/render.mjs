@@ -10,6 +10,71 @@ function escapeHtml(value) {
 const SECURITY_META = `<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; worker-src 'none'">
     <meta name="referrer" content="no-referrer">`;
 
+// The RAPP/1 organism, bottom to top, as the organism map words it. Specifications decide.
+const ORGANISM_LINKS = {
+  ecosystem: "https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/ECOSYSTEM.md",
+  constitution: "https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/CONSTITUTION.md",
+  convention: "https://github.com/kody-w/rapp-model-hive/blob/experimental/hive-md/HIVE-MD.md"
+};
+const ORGANISM_STACK = [
+  ["0", "RAPP/1", "in force", "Bytes and identity: RAPPIDs, frames, hashes, signatures, eggs, registries."],
+  ["1", "Estate", "in force", "An owner's signed registry and its protocol pins."],
+  ["2", "Organization", "specified", "Canonical rapp-work/1: one accountable owner, one world, one policy, one release scope and exactly one Hive. No estate has activated it yet (G16), and it cannot bind a folder Hive yet (G10)."],
+  ["3", "Hive", "in force: rapp-hive/1 Private Hive · experimental: folder Hive", "A rapp-hive/1 Private Hive is the one Hive an organization can hold today. The Hive folder convention is experimental."],
+  ["4", "Your device", "in force: workspaces · experimental: Hive copies, references", "Your Hive copies, your read-only references and your private workspaces."],
+  ["5", "Brainstem", "in force", "The one surface you talk to."],
+  ["6", "You", "", "You talk to your Brainstem and confirm every exact plan in a later turn."]
+];
+
+function healthTag(health) {
+  return health && health !== "—" ? ` <span class="muted">[${escapeHtml(health)}]</span>` : "";
+}
+
+// Escape text, then show `code` spans from shared markdown notes as code.
+function inlineMarkdown(value) {
+  return escapeHtml(value).replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function renderOrganismStack() {
+  return `<dl>
+${ORGANISM_STACK.map(([number, name, health, text]) => `          <div><dt>${number} · ${escapeHtml(name)}</dt><dd>${escapeHtml(text)}${healthTag(health)}</dd></div>`).join("\n")}
+        </dl>`;
+}
+
+function renderOrganismLinks() {
+  return `<a class="text-link" href="${ORGANISM_LINKS.ecosystem}" rel="noreferrer noopener">ECOSYSTEM.md</a>
+          <a class="text-link" href="${ORGANISM_LINKS.constitution}" rel="noreferrer noopener">CONSTITUTION.md</a>
+          <a class="text-link" href="${ORGANISM_LINKS.convention}" rel="noreferrer noopener">Hive folder convention</a>`;
+}
+
+function renderTree(root, paths) {
+  const tree = new Map();
+  for (const filePath of paths) {
+    let node = tree;
+    for (const part of filePath.split("/")) {
+      if (!node.has(part)) node.set(part, new Map());
+      node = node.get(part);
+    }
+  }
+  const lines = [`${root}/`];
+  const walk = (node, prefix) => {
+    const names = [...node.keys()].sort((left, right) => {
+      const leftFolder = node.get(left).size > 0;
+      const rightFolder = node.get(right).size > 0;
+      if (leftFolder !== rightFolder) return leftFolder ? 1 : -1;
+      return left < right ? -1 : left > right ? 1 : 0;
+    });
+    names.forEach((name, index) => {
+      const last = index === names.length - 1;
+      const child = node.get(name);
+      lines.push(`${prefix}${last ? "└── " : "├── "}${name}${child.size ? "/" : ""}`);
+      walk(child, `${prefix}${last ? "    " : "│   "}`);
+    });
+  };
+  walk(tree, "");
+  return lines.join("\n");
+}
+
 export function renderHomeHtml({ card, generatedAt, record, qrPath, seedCards = [] }) {
   const title = escapeHtml(card.title);
   const repositoryUrl = escapeHtml(record.locator.repositoryUrl);
@@ -42,6 +107,7 @@ export function renderHomeHtml({ card, generatedAt, record, qrPath, seedCards = 
       <nav aria-label="Primary">
         <a href="#organizations">Organizations</a>
         <a href="#rapp-workflow">How it works</a>
+        <a href="#where-this-fits">Where this fits</a>
         <a href="../api/hive-hub/v1/index.json">Static API</a>
         <a href="https://github.com/kody-w/rapp-hive-hub" rel="noreferrer noopener">GitHub</a>
       </nav>
@@ -111,6 +177,17 @@ ${seedCards.map(({ seed, card: seedCard }) => `
         <p class="muted">Built on the generic Hive Hub core, not a replacement RAPP implementation. Existing RAPPID, Payphone, and historical Hub adapters are retained; installed RAPP tooling remains the authority.</p>
       </section>
 
+      <section id="where-this-fits" aria-labelledby="fits-title">
+        <p class="eyebrow">Where this fits · the RAPP/1 organism, bottom to top</p>
+        <h2 id="fits-title">Starters, discovery and join. Nothing more.</h2>
+        <p>This hub is RAPP Work starters plus discovery and join across Hives. It sits beside the stack as part of the Hive Mind (candidate): it finds a Hive and verifies what it declares, but decides nothing. Transport carries; signatures decide.</p>
+        ${renderOrganismStack()}
+        <p>Every starter here is a package, not an activated organization. It carries an Organization plan (specified), native Workspaces for each team (in force), and an inert folder-Hive template (experimental) that a founder's Brainstem turns into a Hive with the Hive agent. <code>rapp-hive/2</code> is frozen as a research record.</p>
+        <div class="actions">
+          ${renderOrganismLinks()}
+        </div>
+      </section>
+
       <section class="principles" aria-labelledby="principles-title">
         <h2 id="principles-title">Discovery boundaries</h2>
         <ul class="feature-grid">
@@ -154,9 +231,15 @@ ${seedCards.map(({ seed, card: seedCard }) => `
 `;
 }
 
-export function renderOrganizationSeedHtml({ seed, card, boot, hatcher, generatedAt }) {
+export function renderOrganizationSeedHtml({ seed, card, boot, hatcher, generatedAt, predecessors = [] }) {
   const teams = seed.workspaces.filter((workspace) => workspace.id !== "casework");
   const starterFiles = seed.files.filter((file) => file.path.includes("/starter/"));
+  const organism = seed.organism;
+  const hive = organism.folderHive;
+  const templatePaths = seed.files
+    .map((file) => file.path)
+    .filter((filePath) => filePath.startsWith(`${hive.root}/`))
+    .map((filePath) => filePath.slice(hive.root.length + 1));
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -194,6 +277,16 @@ export function renderOrganizationSeedHtml({ seed, card, boot, hatcher, generate
           <img src="${escapeHtml(card.qr.url)}" width="320" height="320" alt="Locator-only join QR for ${escapeHtml(seed.name)}">
           <figcaption>Give this QR to your AI to inspect the exact seed and its declared protocol.</figcaption>
         </figure>
+      </section>
+      <section aria-labelledby="fits-title">
+        <p class="eyebrow">Where this fits · the RAPP/1 organism, bottom to top</p>
+        <h2 id="fits-title">A starter package, not an activated organization.</h2>
+        <p>These are the layers this starter touches. This hub only offers the package plus discovery and join across Hives; transport carries, signatures decide.</p>
+        <dl>
+${organism.layers.map((layer) => `          <div><dt>${layer.layer} · ${escapeHtml(layer.name)}</dt><dd>${escapeHtml(layer.touches)}${healthTag(layer.health)}</dd></div>`).join("\n")}
+${organism.across.map((part) => `          <div><dt>Across · ${escapeHtml(part.part)}</dt><dd>${escapeHtml(part.touches)}${healthTag(part.health)}</dd></div>`).join("\n")}
+        </dl>
+        <p class="muted"><code>rapp-hive/2</code> is frozen as a research record; this starter does not use it. The same map ships in the ZIP as <code>ORGANISM.md</code>.</p>
       </section>
       <section aria-labelledby="case-title">
         <p class="eyebrow">Your first engagement</p>
@@ -245,6 +338,28 @@ export function renderOrganizationSeedHtml({ seed, card, boot, hatcher, generate
         </ol>
         <p class="muted">The boot Egg grants no authority and runs nothing by itself. <a href="${escapeHtml(boot.descriptor.url)}">Boot record JSON</a>.</p>
       </section>
+      <section aria-labelledby="folder-hive-title">
+        <p class="eyebrow">A folder-Hive shape · ${escapeHtml(hive.health)}</p>
+        <h2 id="folder-hive-title">Or start a folder Hive from the template.</h2>
+        <p>The ZIP also holds <code>${escapeHtml(hive.root)}/</code>, an inert template in the <a href="${ORGANISM_LINKS.convention}" rel="noreferrer noopener">Hive folder convention</a>: <code>HIVE.md</code> with ${hive.approvals} approvals, a <code>fields:</code> hint for this starter's tasks and an empty <code>hive:</code> id, then one note per task under <code>shared/&lt;team&gt;/</code>, linked by <code>[[id]]</code>, and the starter files as notes in <code>shared/casework/artifacts/</code>. It is data: nothing in it runs.</p>
+        <pre tabindex="0" role="region" aria-label="Folder-Hive template tree for ${escapeHtml(seed.name)}"><code>${escapeHtml(renderTree(hive.root, templatePaths))}</code></pre>
+        <ol class="steps">
+          <li><strong>Pull it down as a reference.</strong> Download the ZIP, check its SHA-256, and unzip it into a new folder. That folder is a reference in its own shape: read-only, never run, read as data. The hive-network skill verifies it first.</li>
+          <li><strong>Create the Hive.</strong> Ask your Brainstem to create a Hive with the Hive agent, using this starter's name, ${hive.approvals} approvals and the <code>fields:</code> hint from <code>${escapeHtml(hive.root)}/HIVE.md</code>. The Hive agent fills in a fresh <code>hive:</code> id and signs your key file.</li>
+          <li><strong>Bring each room by signed copy.</strong> Pin the unzipped folder as a reference, then bring <code>${escapeHtml(hive.root)}/shared/&lt;room&gt;</code> into <code>shared/&lt;room&gt;</code>. Every file arrives in one signed commit, stamped with <code>brought_from</code> and <code>brought_sha256</code>, after you confirm the plan.</li>
+        </ol>
+        <p>What maps cleanly, and what does not:</p>
+        <ul class="seed-files">${hive.notes.map((note) => `<li>${inlineMarkdown(note)}</li>`).join("")}</ul>
+        <p class="muted">An organization cannot bind a folder Hive yet (G10), and dial records do not describe folder Hives yet (G12). Today the Hive an organization holds is a <code>rapp-hive/1</code> Private Hive.</p>
+      </section>
+${predecessors.length ? `      <section aria-labelledby="earlier-title">
+        <h2 id="earlier-title">Earlier package, kept byte for byte.</h2>
+        <p>Adding the organism map and the folder-Hive template changed this package, and a Dial Record commits to its exact package, so this starter now has a new record, join card and chant. The earlier ones still resolve at their content addresses, outside the active dialbook.</p>
+        <ul class="seed-files">${predecessors.map((earlier) => `
+          <li>Earlier <a href="${escapeHtml(earlier.archive.url)}" download="${escapeHtml(seed.slug)}-earlier.zip">ZIP</a> (SHA-256 <code>${escapeHtml(earlier.archive.sha256)}</code>), <a href="${escapeHtml(earlier.card.url)}">join card</a>, <a href="${escapeHtml(earlier.record.url)}">Dial Record</a> and chant <code>${escapeHtml(earlier.chant)}</code>.</li>`).join("")}
+        </ul>
+      </section>
+` : ""}
     </main>
     <footer><p>Reproducibility/build epoch: <time datetime="${escapeHtml(generatedAt)}">${escapeHtml(generatedAt)}</time>. This fixed value is not a verification or publication time. <a href="../../#organizations">Back to all organization seeds</a>.</p></footer>
   </body>
@@ -1132,6 +1247,15 @@ Do not infer compatibility or authority from RAPP branding. Existing RAPP, RAPPI
 Public contribution repository: https://github.com/kody-w/rapp-hive-hub
 Generic upstream: https://github.com/kody-w/hive-hub
 
+## Where this fits
+
+Read the RAPP/1 organism bottom to top: 0 RAPP/1 (in force) · 1 Estate, a signed registry with protocol pins (in force) · 2 Organization, canonical rapp-work/1 with one owner, one world, one policy, one release scope and exactly one Hive (specified; no estate has activated it yet, G16; it cannot bind a folder Hive yet, G10) · 3 Hive: a rapp-hive/1 Private Hive (in force, the one Hive an organization can hold today) or the Hive folder convention (experimental) · 4 Your device: Hive copies, references and private workspaces · 5 Brainstem, the one surface you talk to (in force) · 6 You.
+This hub is RAPP Work starters plus discovery and join across Hives. It sits beside the stack as part of the Hive Mind (candidate) and decides nothing. Transport carries; signatures decide.
+Each starter is a package, not an activated organization: an Organization plan (specified), native team Workspaces (in force), and an inert folder-Hive template under folder-hive/ (experimental) that a founder's Brainstem creates with the Hive agent. Its ORGANISM.md names every layer it touches.
+A downloaded ZIP or seed folder is a reference in its own shape: read it as data and bring pieces into a Hive only by signed copy (brought_from, brought_sha256). rapp-hive/2 is frozen as a research record.
+Earlier seed records, cards, declarations, seed documents and ZIPs stay byte-exact at their content addresses, outside the active dialbook; each seed index entry names its predecessors.
+Maps: https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/ECOSYSTEM.md and https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/CONSTITUTION.md; Hive folder convention: https://github.com/kody-w/rapp-model-hive/blob/experimental/hive-md/HIVE-MD.md
+
 ## Required interpretation
 
 1. Treat chants, cards, QR codes, repositories, URLs, and Git references only as candidate locators.
@@ -1155,7 +1279,7 @@ Generic upstream: https://github.com/kody-w/hive-hub
 - hashes.json validates generated public files.
 - offline-seed.json carries immutable essentials for offline inspection.
 - receipts/index.json names an append-only content-addressed receipt chain.
-- organization-seeds.json lists twelve real downloadable organization starter packages with team workspaces, case inputs, task dependencies, and original artifacts.
+- organization-seeds.json lists twelve real downloadable organization starter packages with team workspaces, case inputs, task dependencies, original artifacts, a folder-Hive template, and any byte-exact predecessors.
 - Seed JSON and ZIP contents are inert. A seed is not an activated organization or running agent. Initialize only with the exact locally trusted RAPP Work SDK and owner-approved native plans.
 - The hive-network SKILL.md is a complete host-operated workflow for discovery, local work, and separately approved public contributions. It grants no authority and cannot add capabilities to a browser-only AI.
 

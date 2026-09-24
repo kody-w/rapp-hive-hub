@@ -14,13 +14,49 @@ Foundation, Applied Invention Lab, Independent Game Studio, Micro-Manufacturing
 Company, Public-Source Intelligence Bureau, Turnaround Firm, Federation
 Prime Contractor, AI Video Studio, and First-Party Rapplication Company. Each includes scoped
 teams, a synthetic case, original artifacts, dependency-linked tasks, a
-deterministic ZIP, and a verified join card.
+deterministic ZIP, a verified join card, an organism map (`ORGANISM.md`), and an
+inert folder-Hive template (`folder-hive/`, experimental).
 These are **starter packages, not running agents or activated companies**.
 
 The [First-Party Rapplication Company](https://kody-w.github.io/rapp-hive-hub/hub/seeds/first-party-rapplication-company/)
 adds seven teams, a configurable founder-CEO charter, a chat-operated checklist
 reference, and an evidence-gated internal-use-to-public-PR pipeline. Independent
 verification and a separate decision are required; only the owner merges.
+
+## Where this fits
+
+Read the RAPP/1 organism bottom to top:
+
+0. **RAPP/1**: bytes and identity (in force).
+1. **Estate**: an owner's signed registry and its protocol pins (in force).
+2. **Organization**: canonical `rapp-work/1`, with one accountable owner, one
+   world, one policy, one release scope and exactly one Hive (specified: no
+   estate has activated it yet, G16, and it cannot bind a folder Hive yet, G10).
+3. **Hive**: a `rapp-hive/1` Private Hive (in force, and the one Hive an
+   organization can hold today) or the Hive folder convention (experimental).
+4. **Your device**: your Hive copies, read-only references and private workspaces.
+5. **Brainstem**: the one surface you talk to (in force).
+6. **You**: you confirm every exact plan.
+
+This hub is RAPP Work starters plus discovery and join across Hives. It sits
+beside the stack as part of the Hive Mind (candidate) and decides nothing:
+transport carries, signatures decide. `rapp-hive/2` is frozen as a research
+record. Maps: [ECOSYSTEM.md](https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/ECOSYSTEM.md)
+and [CONSTITUTION.md](https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/CONSTITUTION.md)
+in `kody-w/rapp-work` (branch `experimental/rapp-work-constitution`), and the
+[Hive folder convention](https://github.com/kody-w/rapp-model-hive/blob/experimental/hive-md/HIVE-MD.md)
+in `kody-w/rapp-model-hive` (branch `experimental/hive-md`).
+
+Each starter names the layers it touches in its `ORGANISM.md`: an Organization
+plan (specified), native team Workspaces (in force), a Hive, which today can
+only be a `rapp-hive/1` Private Hive that its owner creates separately, and, as
+an experimental option, the `folder-hive/` template. Download a ZIP (or read a
+seed folder) and it is a reference in its own shape: read it as data, and bring
+pieces into a Hive only by signed copy, stamped with `brought_from` and
+`brought_sha256`. A founder's Brainstem creates the Hive from the template with
+the Hive agent; nothing in the template runs. [Organization
+seeds](docs/ORGANIZATION_SEEDS.md) lists what maps cleanly for each starter and
+what does not.
 
 ## Start with an outcome
 
@@ -67,6 +103,7 @@ own.
 | --- | --- |
 | Product | RAPP-first catalog, native setup workflow, and AI skill |
 | Organization seeds | `rapp-work/1`, using the `rapp-work-sdk/1` workspace profile |
+| Folder-Hive templates | Hive folder convention, `kody-w/rapp-model-hive` at `2bd7c95152ede719b6418b80e2bdc2cd457bf711` (experimental, inert data) |
 | RAPP Work SDK | `kody-w/rapp-work` at `29ead23b21645f8d7682ee00414930ffa9ce0ca6` |
 | RAPP/1 | `kody-w/rapp-1` at `591e014ad39e223b00ab343ae26e5d9a867ebeee` |
 | Discovery | Unmodified protocol-neutral `hive_hub` core and `api/hive-hub/v1` wire format |
@@ -118,6 +155,15 @@ checkouts under `.hive-hub/deps/` and walks each seed to a live case board.
 After intentional source changes, run `npm run sync:release`, `npm run build`,
 and `python3 -B scripts/build_release_manifest.py`, then verify. Review generated
 changes and immutable receipts before committing.
+
+`python3 -B scripts/folder_hive.py --check` rebuilds every folder-Hive template
+twice and refuses drift or a broken file rule (`--slug <slug> --out <new folder>`
+writes one tree for inspection). A Dial Record commits to its exact package, so a
+package that gains files gets a successor record: `python3 -B scripts/seed_predecessors.py preserve`
+copies the earlier record, cards, declaration, seed document and ZIP byte for byte
+into `public-src/historical/` and pins them in `seed-src/SEED_PREDECESSORS.json`;
+they stay at their content addresses, outside the active dialbook, and receipt
+0005 records the step.
 
 Pages serves the root of the separate `gh-pages` branch, containing only the
 verified `site/` artifact. The source lives on `main`. Rebuild and verify before

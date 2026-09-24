@@ -1,0 +1,19 @@
+{
+  "actor": "urn:hive-hub:publisher:repository-maintainers",
+  "event": "publish-seed-successors",
+  "kind": "receipt-source",
+  "ledger": "public-lab",
+  "occurredAt": "2026-09-24T16:00:00Z",
+  "operation": {
+    "boundedTo": [
+      "the twelve RAPP Work organization starter packages, each gaining an organism map and an inert folder-Hive template while every earlier package file keeps its bytes",
+      "their successor declarations, Dial Records, join cards and QR destinations on this site",
+      "byte-exact predecessor records, cards, declarations, seed documents, ZIPs and receipt kept at their content addresses, outside the active dialbook"
+    ],
+    "planFirst": true,
+    "reversibleBy": "Restore the preceding public projection without rewriting any preceding receipt; predecessor objects remain at their content addresses.",
+    "sourceCommit": "e579f9cea54d7c577189f45ed2309da322911b54"
+  },
+  "recordId": "seed-one-person-conglomerate",
+  "sequence": 5
+}

@@ -33,7 +33,9 @@ PRODUCT_VERSION = "0.1.1"
 GENERATED_AT = "2026-09-18T23:29:19Z"
 CORE_CARD_ISSUED_AT = "2026-09-18T19:16:11Z"
 SITE_BASE_URL = "https://kody-w.github.io/hive-hub"
+RAPP_SITE_BASE_URL = "https://kody-w.github.io/rapp-hive-hub"
 API_PATH = "api/hive-hub/v1"
+SEED_PREDECESSORS = ROOT / "seed-src" / "SEED_PREDECESSORS.json"
 SAMPLE_REPOSITORY = "kody-w/hive-hub"
 SAMPLE_REVISION = "8e9ee55a7eb9fe4b4aaa084290e1916c0edcade9"
 SAMPLE_DECLARATION_ID = (
@@ -89,6 +91,32 @@ def source_reference(relative: str, *, site_base_url: str = SITE_BASE_URL) -> di
         "url": f"{site_base_url}/{API_PATH}/source/{relative}",
         "sha256": sha(data),
         "bytes": len(data),
+    }
+
+
+def predecessor_reference(slug: str) -> dict[str, Any]:
+    """The latest byte-exact predecessor this seed's successor declaration supersedes."""
+    pins = json.loads(read_regular_bytes(SEED_PREDECESSORS).decode("utf-8"))
+    history = pins["seeds"].get(slug, [])
+    if not history:
+        return {}
+    latest = history[-1]
+
+    def located(item: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "path": item["path"],
+            "sha256": item["sha256"],
+            "url": f"{RAPP_SITE_BASE_URL}/{item['path']}",
+        }
+
+    return {
+        "predecessor": {
+            "dial_id": latest["dial_id"],
+            "declaration": located(latest["declaration"]),
+            "record": located(latest["record"]),
+            "archive": located(latest["archive"]),
+            "status": "superseded-kept-byte-exact",
+        }
     }
 
 
@@ -216,11 +244,10 @@ def build_core_card(locator: str, issued_at: str = CORE_CARD_ISSUED_AT) -> dict[
 
 def seed_contracts(seed: dict[str, Any], *, check: bool) -> dict[str, Any]:
     slug = seed["slug"]
-    seed_base_url = (
-        "https://kody-w.github.io/rapp-hive-hub"
-        if slug == "first-party-rapplication-company"
-        else SITE_BASE_URL
-    )
+    # Every package now carries files that only this distribution publishes (ORGANISM.md and the
+    # folder-Hive template), so each successor declaration points at this site. The predecessor
+    # declarations, including the upstream-addressed ones, stay byte-exact historical objects.
+    seed_base_url = RAPP_SITE_BASE_URL
     protocol = source_reference("protocols/rapp-work-organization-seed-v1.json")
     conformance = source_reference("conformance/rapp-work-organization-seed-v1.json")
     seed_reference = source_reference(
@@ -269,6 +296,7 @@ def seed_contracts(seed: dict[str, Any], *, check: bool) -> dict[str, Any]:
             "workspace_profile": "rapp-work-sdk/1",
             "sdk_commit": seed["dependencies"]["sdk"]["commit"],
             "authority": False,
+            **predecessor_reference(slug),
         },
     }
     write_or_check(

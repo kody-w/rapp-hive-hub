@@ -54,6 +54,7 @@ ALLOWED_PUBLIC_REPOSITORIES = {
     "kody-w/rapp-work",
     "kody-w/rapp-1",
     "kody-w/rappid",
+    "kody-w/rapp-model-hive",
 }
 GITHUB_REPOSITORY_RE = re.compile(
     r"(?:https://(?:raw\.)?githubusercontent\.com/|https://github\.com/)"

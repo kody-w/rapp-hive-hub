@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
@@ -102,9 +103,16 @@ test("new seed locators target this distribution without rewriting upstream seed
   const dialbook = await readJson(path.join(root, "skills/hive-hub/registry/public-dialbook.json"));
   const record = dialbook.records.find((item) => item.aliases.includes(slug));
   assert.equal(record.locator, `${prefix}skill-declarations/seed-${slug}.json`);
-  const upstream = await readJson(path.join(
+  // Every successor package is published only here; the predecessor declaration that points at
+  // the upstream site stays a byte-exact historical object, named by its successor.
+  const successor = await readJson(path.join(
     root, "public-src/skill-declarations/seed-product-launch-company.json"
   ));
+  assert.equal(successor.extensions.seed.url, `${prefix}organization-seeds/product-launch-company.json`);
+  const earlier = successor.extensions.predecessor.declaration;
+  const upstreamBytes = await readFile(path.join(root, "public-src/historical/rapp-seeds-e579f9c", `${earlier.sha256}.json`));
+  assert.equal(createHash("sha256").update(upstreamBytes).digest("hex"), earlier.sha256);
+  const upstream = JSON.parse(upstreamBytes);
   assert.equal(upstream.extensions.seed.url,
     "https://kody-w.github.io/hive-hub/api/hive-hub/v1/source/organization-seeds/product-launch-company.json");
 });

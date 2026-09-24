@@ -32,6 +32,18 @@ fsyncs a same-directory file, atomically links it into an absent destination,
 and refuses different bytes at an existing path. Components and input files
 are opened with no-follow semantics and must be regular files.
 
+## Where this fits
+
+In the RAPP/1 organism, read bottom to top (0 RAPP/1, 1 Estate, 2 Organization,
+3 Hive, 4 your device, 5 Brainstem, 6 you), this protocol-neutral core is
+discovery and join across Hives: part of the Hive Mind beside layer 3
+(candidate). It locates and verifies what a Hive declares and decides nothing;
+transport carries, signatures decide. The RAPP Hive Hub's starters, their
+organism maps and their folder-Hive templates (experimental) are described in
+the [README](../README.md#where-this-fits) and
+[organization seeds](ORGANIZATION_SEEDS.md). `rapp-hive/2` is frozen as a
+research record.
+
 ## Lifecycle
 
 1. `learn DECLARATION BUNDLE` validates matching protocol and conformance
