@@ -1,0 +1,15 @@
+{
+  "kind": "organization",
+  "slug": "one-person-conglomerate",
+  "path": "cards/orgs/one-person-conglomerate.md",
+  "sha256": "5981cbaa49a17871c157370b94d88d6b136416cd9e5ffe77fbfe899f2d9cb9bc",
+  "chant": "ursa-hollow-glade-wren-ester-nettle-zeal",
+  "frontmatter": {
+    "card": "organization",
+    "name": "The One-Person Conglomerate",
+    "status": "specified",
+    "hive": "template",
+    "starter": "one-person-conglomerate"
+  },
+  "body": "Five small businesses, one explicitly limited founder. Allocate a synthetic founder's attention\nacross five distinct business units using bounded learning experiments, shared operating functions,\nand evidence rather than invented revenue.\n\nSpecified, not active: canonical `rapp-work/1` would give this organization one accountable owner,\none world (planned id `demo-one-person-conglomerate`), one policy, one release scope and exactly one\nHive. No estate has activated `rapp-work/1` yet (G16), and it cannot bind a folder Hive yet (G10),\nso the organization starts from its starter template. The card grants nothing.\n"
+}

@@ -1,0 +1,17 @@
+---
+file: data/policy.json
+sha256: 9c1b87389ce74d52368a497c575f3725239bfb7a7e59f6437f9fa984b20748ed
+---
+
+```
+{
+  "classification": "SYNTHETIC",
+  "currency": "USD",
+  "rounding": "ROUND_HALF_UP-per-line-and-shipping-tax",
+  "discount_caps_pct": {"standard": "5.00", "partner": "12.00", "strategic": "18.00"},
+  "tax_rates_pct": {"standard": "7.50", "exempt": "0.00"},
+  "shipping_tax_code": "standard",
+  "po_required": true,
+  "interpretation": "Fictional calculation policy only; not tax law, credit authority, or an integration configuration."
+}
+```

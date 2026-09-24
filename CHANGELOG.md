@@ -1,31 +1,29 @@
 # Changelog
 
+## Target shape (experimental branch; `main` keeps the previous design)
+
+- The hub is now a tree of markdown cards, one fact per file, plus `tools/build.py`, a
+  byte-identical copy of the generic Hive Hub's standard-library builder. It checks every card
+  and starter template and generates `views/`: the api/v2 JSON, a static site that needs no
+  JavaScript, and `chants.txt`.
+- Cards: the protocols `hive-md` (experimental), `rapp-hive/1` (in force) and `rapp-hive/2`
+  (frozen), the synthetic Contoso model Hive (experimental, no live shared copy), the RAPP Hive
+  (planned, no pins yet), and one organization card (specified) and one starter card
+  (experimental) for each of the twelve starters.
+- The twelve organization seeds became `starters/<slug>/` Hive templates: `HIVE.md` with 2
+  approvals, a `fields:` hint and a `hive:` placeholder, one note per task under `shared/<team>/`
+  with `[[id]]` links between dependencies, the charter, the first case and the starter files as
+  notes. Each README.md says where the starter fits and what does not map cleanly.
+- Joining and starting happen only in the person's own Brainstem, with the card's pins or the
+  template. The hub writes nothing into a Hive, keeps no subscription state and runs nothing.
+- Removed the generated api v1 and site, the public inputs and receipts, the seed packages and
+  ZIPs, join cards, boot Eggs with the SeedRunner organ, the inherited Python core, CLI,
+  subscriptions, bootstrap and adapters, the build scripts, the skills, the old docs and tests,
+  and the inactive workflow templates. The earlier additive fit on this branch is superseded.
+- Kept the frozen `hive-hub-chant/1` vocabulary; a chant now comes from a card's SHA-256.
+
 ## Unreleased
 
-- Mapped every organization starter onto the RAPP/1 organism. Each package now
-  carries `ORGANISM.md`, which says layer by layer what the starter touches (an
-  Organization plan, specified; a `rapp-hive/1` Private Hive today, or a folder
-  Hive as an experimental option; members' Workspaces and Brainstems), with the
-  honest status words in force, specified, experimental, candidate and frozen.
-- Added `scripts/folder_hive.py`, a deterministic standard-library generator that
-  turns each starter's teams, tasks, charter and files into an inert folder-Hive
-  template (`folder-hive/`: `HIVE.md` with 2 approvals, a `fields:` hint and an
-  empty `hive:`, one note per task linked by `[[id]]`, and the starter files as
-  notes in `shared/casework/artifacts/`). It follows the Hive folder convention's
-  file rules, pinned to `kody-w/rapp-model-hive@2bd7c95`, and notes where a
-  starter's data does not map cleanly instead of inventing structure.
-- Packages only gained files; every earlier file keeps its bytes and `seed.json`
-  lists the new inventory. Because a Dial Record commits to its exact package,
-  each starter has a successor declaration, record, join card and chant. The
-  predecessors' records, cards, declarations, seed documents, ZIPs and the
-  distribution receipt stay byte-exact at their content addresses, outside the
-  active dialbook (`scripts/seed_predecessors.py`, `seed-src/SEED_PREDECESSORS.json`),
-  and receipt 0005 records the step. Historical receipts now keep the URL of the
-  site that published them.
-- Added a consistent "Where this fits" section to the README, `llms.txt`, docs,
-  the hive-network skill (1.1.0), `seed-src/README.md`, the examples and the site,
-  which also shows each starter's template tree and its earlier package.
-- Allowed public links to `kody-w/rapp-model-hive` for the Hive folder convention.
 - Added the generic First-Party Rapplication Company organization seed:
   seven scoped teams and separate casework, a configurable founder-CEO charter,
   craftsmanship and promotion templates, and a synthetic checklist case.

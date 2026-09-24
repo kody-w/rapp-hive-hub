@@ -1,0 +1,15 @@
+{
+  "kind": "hive",
+  "slug": "rapp-hive",
+  "path": "cards/hives/rapp-hive.md",
+  "sha256": "2ca17f2a25e2d834b76f6f02aca051a8ff1de1be5e3cbfd8e9f6d532d514f9f3",
+  "chant": "zephyr-nettle-haven-wren-rushes-dell-trench",
+  "frontmatter": {
+    "card": "hive",
+    "name": "The RAPP Hive",
+    "protocol": "hive-md",
+    "status": "planned",
+    "channel": "None yet. The RAPP Hive is planned, has no shared copy and takes no requests."
+  },
+  "body": "The RAPP project's own public example Hive, planned in the organism map as a folder Hive where the\nmaintainers are the members and AIs are tools. Its rooms would hold one canonical fact per file, one\ndrift verdict per repository, the layer map and one file per gap, with every estate repository as a\nread-only reference. It has no Hive id, root commit or founder yet, so nobody can join it.\n"
+}

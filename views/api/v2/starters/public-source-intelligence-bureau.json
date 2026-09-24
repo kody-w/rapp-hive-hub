@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "public-source-intelligence-bureau",
+  "path": "cards/starters/public-source-intelligence-bureau.md",
+  "sha256": "644082396567b2c0585f70e0d78b53f8a565b865958c87a764aa84a9ed44a4a5",
+  "chant": "ford-thorn-quartz-moss-grove-ivy-flint",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Public-Source Intelligence Bureau starter",
+    "status": "experimental",
+    "template": "starters/public-source-intelligence-bureau/",
+    "org": "public-source-intelligence-bureau"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 5 team rooms and a\ncasework room, 10 tasks linked by their dependencies, the charter, the first case (Can fictional\nJuniper Queue support an unattended offline pilot on 15 October?) and 14 starter files. All data is\nsynthetic, and nothing in it runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

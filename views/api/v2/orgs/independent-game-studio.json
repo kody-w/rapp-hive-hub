@@ -1,0 +1,15 @@
+{
+  "kind": "organization",
+  "slug": "independent-game-studio",
+  "path": "cards/orgs/independent-game-studio.md",
+  "sha256": "7a7946d702f3e3fb7b9db8f5652ef0f8253bbcb7f92726d41a1707077d1b03ce",
+  "chant": "beacon-atlas-birch-steppe-quartz-usher-ebb",
+  "frontmatter": {
+    "card": "organization",
+    "name": "The Independent Game Studio",
+    "status": "specified",
+    "hive": "template",
+    "starter": "independent-game-studio"
+  },
+  "body": "Ship a small original game, with a real production discipline. Run a seven-team independent studio\naround Mosslight Courier, an original offline route puzzle. Turn synthetic first-session feedback\ninto a bounded onboarding revision with playable source, readable art, opt-in sound, and\nreproducible regression evidence.\n\nSpecified, not active: canonical `rapp-work/1` would give this organization one accountable owner,\none world (planned id `demo-independent-game-studio`), one policy, one release scope and exactly one\nHive. No estate has activated `rapp-work/1` yet (G16), and it cannot bind a folder Hive yet (G10),\nso the organization starts from its starter template. The card grants nothing.\n"
+}

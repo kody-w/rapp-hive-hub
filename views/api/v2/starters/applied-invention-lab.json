@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "applied-invention-lab",
+  "path": "cards/starters/applied-invention-lab.md",
+  "sha256": "0cd56371c60cdb4558f93c5496e2633bfb9001791f81dfe1a13300b688a21f57",
+  "chant": "granite-quiver-ebb-sedge-birch-granite-wold",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Applied Invention Lab starter",
+    "status": "experimental",
+    "template": "starters/applied-invention-lab/",
+    "org": "applied-invention-lab"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 5 team rooms and a\ncasework room, 10 tasks linked by their dependencies, the charter, the first case (Library Kit Tote\nStudy: does a two-capacity heuristic actually reduce modeled bins?) and 15 starter files. All data\nis synthetic, and nothing in it runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

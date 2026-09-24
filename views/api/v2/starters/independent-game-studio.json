@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "independent-game-studio",
+  "path": "cards/starters/independent-game-studio.md",
+  "sha256": "d174706ff5594a157bf684404bf3678057a621f0336e25f9a2b01da7babf149c",
+  "chant": "mesa-vine-rill-quay-weir-ursa-fjord",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Independent Game Studio starter",
+    "status": "experimental",
+    "template": "starters/independent-game-studio/",
+    "org": "independent-game-studio"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 7 team rooms and a\ncasework room, 10 tasks linked by their dependencies, the charter, the first case (Mosslight\nCourier: make the first bridge legible) and 13 starter files. All data is synthetic, and nothing in\nit runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "product-launch-company",
+  "path": "cards/starters/product-launch-company.md",
+  "sha256": "535564cbb61112dc107a22791a94bb50a1cf3f745ae8c88469ca24c8386f235f",
+  "chant": "oxbow-quiver-ford-glade-jetty-furrow-lichen",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Product Launch Company starter",
+    "status": "experimental",
+    "template": "starters/product-launch-company/",
+    "org": "product-launch-company"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 6 team rooms and a\ncasework room, 12 tasks linked by their dependencies, the charter, the first case (Agenda Pocket:\nmake a 60-minute meeting fit without hiding required topics) and 15 starter files. All data is\nsynthetic, and nothing in it runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

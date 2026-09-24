@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "micro-manufacturing-company",
+  "path": "cards/starters/micro-manufacturing-company.md",
+  "sha256": "0d509fad7a14d9d019af44cdbfb1fcae0f27bef4ce0811ed0966b6a47ef1ed9f",
+  "chant": "sable-ledge-loam-alder-beacon-aspen-ursa",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Micro-Manufacturing Company starter",
+    "status": "experimental",
+    "template": "starters/micro-manufacturing-company/",
+    "org": "micro-manufacturing-company"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 7 team rooms and a\ncasework room, 10 tasks linked by their dependencies, the charter, the first case (Stackline desk\ncaddy: a 20-kit planning exercise) and 14 starter files. All data is synthetic, and nothing in it\nruns.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

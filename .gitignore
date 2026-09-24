@@ -1,13 +1,4 @@
 __pycache__/
 *.py[cod]
-.pytest_cache/
-.ruff_cache/
-.mypy_cache/
-.venv/
-node_modules/
-build/
-dist/
-*.egg-info/
-site/
+.DS_Store
 .hive-hub/
-tests/.work/

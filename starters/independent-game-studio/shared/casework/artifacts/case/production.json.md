@@ -1,0 +1,20 @@
+---
+file: case/production.json
+sha256: c59e5c52e0c4518259a3bba00d94422d048abe131206447835b349d406324306
+---
+
+```
+{
+  "classification": "SYNTHETIC",
+  "case_id": "first-shift-onboarding",
+  "game": "Mosslight Courier",
+  "fictional_studio": "Small Lantern Cooperative",
+  "timebox_working_days": 2,
+  "build_state": "working-reference-not-a-shipped-release",
+  "problem": "The authored first-session exercise concentrates confusion around bridge timing and the existence of undo.",
+  "in_scope": ["first-minute instructions", "bridge phase text", "carry/reload indicators", "original state symbols", "optional short tones", "regression coverage"],
+  "out_of_scope": ["new levels", "new mechanics", "accounts", "telemetry", "remote assets", "monetization", "claims of real player validation"],
+  "research_policy": "All included sessions are synthetic. Recruitment, consent, collection, and publication are separate owner-approved work.",
+  "decision_gate": "A candidate recommendation requires rule tests plus explicit reporting of manual checks that remain unrun."
+}
+```

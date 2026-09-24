@@ -1,0 +1,15 @@
+{
+  "kind": "organization",
+  "slug": "open-source-infrastructure-foundation",
+  "path": "cards/orgs/open-source-infrastructure-foundation.md",
+  "sha256": "21338545ba35a122a206758ed56957797cc5d65f24f53814304f367b72f68247",
+  "chant": "nettle-gorse-marrow-arbor-north-iris-nettle",
+  "frontmatter": {
+    "card": "organization",
+    "name": "The Open-Source Infrastructure Foundation",
+    "status": "specified",
+    "hive": "template",
+    "starter": "open-source-infrastructure-foundation"
+  },
+  "body": "A tiny original project with real, reproducible repair work. Coordinate maintainers, triage,\nengineering, security, documentation, release, and community around a deliberately imperfect offline\nevent reducer, preserving honest failures and evidence-based release gates.\n\nSpecified, not active: canonical `rapp-work/1` would give this organization one accountable owner,\none world (planned id `demo-open-source-infrastructure-foundation`), one policy, one release scope\nand exactly one Hive. No estate has activated `rapp-work/1` yet (G16), and it cannot bind a folder\nHive yet (G10), so the organization starts from its starter template. The card grants nothing.\n"
+}

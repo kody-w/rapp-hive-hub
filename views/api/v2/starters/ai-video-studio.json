@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "ai-video-studio",
+  "path": "cards/starters/ai-video-studio.md",
+  "sha256": "caee99e4f1faaea60e28f5952f4f046a7e90f66384eb732ab93680beac25717b",
+  "chant": "fjord-pond-fenlark-ford-sedge-beacon-briar",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The AI Video Studio starter",
+    "status": "experimental",
+    "template": "starters/ai-video-studio/",
+    "org": "ai-video-studio"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 9 team rooms and a\ncasework room, 14 tasks linked by their dependencies, the charter, the first case (Pilot: the\nWebSocket handshake in 40 seconds) and 23 starter files. All data is synthetic, and nothing in it\nruns.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

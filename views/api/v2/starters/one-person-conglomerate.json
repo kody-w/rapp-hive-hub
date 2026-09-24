@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "one-person-conglomerate",
+  "path": "cards/starters/one-person-conglomerate.md",
+  "sha256": "321a0ff9f2388ceb8c4e931508d44ac0176637861ad10eb8548b6ba31e349604",
+  "chant": "flint-gully-kestrel-atlas-tor-larch-granite",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The One-Person Conglomerate starter",
+    "status": "experimental",
+    "template": "starters/one-person-conglomerate/",
+    "org": "one-person-conglomerate"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 10 team rooms and a\ncasework room, 13 tasks linked by their dependencies, the charter, the first case (Choose no more\nthan three learning experiments for a 40-hour week) and 14 starter files. All data is synthetic, and\nnothing in it runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

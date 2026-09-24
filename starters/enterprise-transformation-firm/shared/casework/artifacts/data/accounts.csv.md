@@ -1,0 +1,12 @@
+---
+file: data/accounts.csv
+sha256: 8644cd424be1498821a59aad735b5663f1077a1b2479b10a51e4f3cbd54a5d44
+---
+
+```
+classification,account-id,account-label,tier,credit-limit-usd,open-balance-usd,active,approved-terms-days
+SYNTHETIC,ac-cedar,Cedar Reference Office,standard,5000.00,4500.00,yes,30
+SYNTHETIC,ac-birch,Birch Reference Studio,partner,1000.00,920.00,yes,30
+SYNTHETIC,ac-elm,Elm Reference Depot,strategic,10000.00,0.00,no,30
+SYNTHETIC,ac-maple,Maple Reference Workshop,partner,5000.00,0.00,yes,45
+```

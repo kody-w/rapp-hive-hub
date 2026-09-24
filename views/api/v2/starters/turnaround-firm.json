@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "turnaround-firm",
+  "path": "cards/starters/turnaround-firm.md",
+  "sha256": "fa0109facf4a8c509287b112769b9762306f60bcc7f12fb8f381daae33a86aae",
+  "chant": "beacon-hollow-cinder-beacon-karst-fjord-granite",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Turnaround Firm starter",
+    "status": "experimental",
+    "template": "starters/turnaround-firm/",
+    "org": "turnaround-firm"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 5 team rooms and a\ncasework room, 11 tasks linked by their dependencies, the charter, the first case (Cedarline Desk:\ncash containment and a broken support dispatch queue) and 14 starter files. All data is synthetic,\nand nothing in it runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}

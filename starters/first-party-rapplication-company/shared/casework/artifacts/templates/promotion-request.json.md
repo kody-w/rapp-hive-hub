@@ -1,0 +1,33 @@
+---
+file: templates/promotion-request.json
+sha256: 9cfeb4b1157cab1213c1d8b69702c76ce1b05e35240883782480f277c6da781d
+---
+
+```
+{
+  "template_kind": "public-promotion-request",
+  "status": "blocked",
+  "candidate_manifest_sha256": null,
+  "public_projection_inventory_sha256": null,
+  "public_destination": null,
+  "privacy_report_reference": null,
+  "privacy_findings": null,
+  "license_review_reference": null,
+  "independent_verification_reference": null,
+  "separate_decision_reference": null,
+  "owner_publication_approval_reference": null,
+  "local_test_evidence": [],
+  "required_ci_checks": [],
+  "pr_text_sha256": null,
+  "pull_request": null,
+  "checked_head": null,
+  "merge_actor": "owner-only",
+  "owner_merge_reference": null,
+  "merged_head": null,
+  "published_artifact_sha256": null,
+  "withdrawal_plan_reference": null,
+  "automatic_merge": false,
+  "publication_observed": false,
+  "instructions": "A prepared or submitted PR is not an owner-merged release. Revalidate all exact bindings and current checks before the external owner action."
+}
+```

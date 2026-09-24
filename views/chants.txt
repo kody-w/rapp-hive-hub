@@ -1,0 +1,33 @@
+# Chants for RAPP Hive Hub: seven words from the first seven bytes of each card's SHA-256.
+# A chant is a locator, never authority. Check the card's full sha256 in api/v2/index.json.
+# A chant that two or more cards share is a collision, marked COLLISION.
+
+beacon-atlas-birch-steppe-quartz-usher-ebb  organization/independent-game-studio  sha256:7a7946d702f3e3fb7b9db8f5652ef0f8253bbcb7f92726d41a1707077d1b03ce
+beacon-hollow-cinder-beacon-karst-fjord-granite  starter/turnaround-firm  sha256:fa0109facf4a8c509287b112769b9762306f60bcc7f12fb8f381daae33a86aae
+birch-juniper-harbor-oxbow-larch-elm-jasper  protocol/hive-md  sha256:c69d0ed338b1ce826c8723d69e083e87378d78215869b3f7d9bdc433b2c4cafd
+eddy-sedge-jetty-ridge-amber-yonder-arbor  organization/enterprise-transformation-firm  sha256:9871b656905dc5129b80642177af16c55268271c321be0a5151dd92af5c9fec1
+ember-eddy-gorse-thorn-brindle-delta-lantern  organization/federation-prime-contractor  sha256:8018b3409348861c5d856bb589b17081b6d238768bc501203dc940422bf73787
+fjord-pond-fenlark-ford-sedge-beacon-briar  starter/ai-video-studio  sha256:caee99e4f1faaea60e28f5952f4f046a7e90f66384eb732ab93680beac25717b
+flint-gully-kestrel-atlas-tor-larch-granite  starter/one-person-conglomerate  sha256:321a0ff9f2388ceb8c4e931508d44ac0176637861ad10eb8548b6ba31e349604
+ford-thorn-quartz-moss-grove-ivy-flint  starter/public-source-intelligence-bureau  sha256:644082396567b2c0585f70e0d78b53f8a565b865958c87a764aa84a9ed44a4a5
+granite-quiver-ebb-sedge-birch-granite-wold  starter/applied-invention-lab  sha256:0cd56371c60cdb4558f93c5496e2633bfb9001791f81dfe1a13300b688a21f57
+hollow-yarrow-amber-verge-moss-petrel-steppe  organization/ai-video-studio  sha256:812b905a3923579d548776c129219b9a50e45616c1019d9e8c9d66f922ee7b4c
+ivy-gully-shale-nook-mesa-knoll-zeal  starter/enterprise-transformation-firm  sha256:671a266cd19e78777a726999bc60f995e718541cbe12fde86e5be4a50a3ebb1a
+knoll-pine-ridge-gorse-nettle-bluff-fathom  organization/first-party-rapplication-company  sha256:1ebcd633a1e08bc4950b17e0f6e6be75db674f99ca99523fdde89badaa076978
+ledge-briar-upland-atlas-otter-xenia-sable  starter/federation-prime-contractor  sha256:d02ec1f9bbdc8d3b6aa9324fd68f752de6c12d82c3efcd8a10afb06051ac02ab
+mesa-vine-rill-quay-weir-ursa-fjord  starter/independent-game-studio  sha256:d174706ff5594a157bf684404bf3678057a621f0336e25f9a2b01da7babf149c
+mica-zephyr-nettle-bramble-quill-beacon-rill  starter/first-party-rapplication-company  sha256:202c2115247af0c256c1ab95023131d6153df5510b58a0b571582aa270e9b595
+nettle-gorse-marrow-arbor-north-iris-nettle  organization/open-source-infrastructure-foundation  sha256:21338545ba35a122a206758ed56957797cc5d65f24f53814304f367b72f68247
+oxbow-quiver-ford-glade-jetty-furrow-lichen  starter/product-launch-company  sha256:535564cbb61112dc107a22791a94bb50a1cf3f745ae8c88469ca24c8386f235f
+petrel-cairn-atlas-umber-ridge-cedar-cinder  organization/product-launch-company  sha256:232ff92856c7098282b2538ea8fe837514502ac252c42b53ed23a6aaf29bf9ae
+pine-cobalt-crag-ledge-knoll-willow-anvil  hive/contoso-model-hive  sha256:bc9661501e8a5f6caefa2d3f1d0dc69411a8cd474c0f56b981359205f13c069c
+quarry-rill-yew-cobalt-orchid-trench-pond  starter/open-source-infrastructure-foundation  sha256:bd704416ed58ee96a849b58bb9dfbe933b8017d6b86f0b5d1387e2589bfb5ef8
+quartz-quill-wren-rushes-mica-pine-yarrow  organization/public-source-intelligence-bureau  sha256:02a42aa520bc2be8a679d4694c33758ef811080ae3a53ba5cfdc5e8c0873e469
+quay-ursa-gorse-bluff-yield-birch-north  protocol/rapp-hive/1  sha256:ef593360f7c6ba57ba771af110234791616c6a51a11b51a656d64206ce849bad
+reed-frost-alder-briar-nadir-drift-quartz  organization/applied-invention-lab  sha256:befd2dae52970288f88ee611909f2c11e0530ae4bac49b07313749747a5d5220
+sable-ledge-loam-alder-beacon-aspen-ursa  starter/micro-manufacturing-company  sha256:0d509fad7a14d9d019af44cdbfb1fcae0f27bef4ce0811ed0966b6a47ef1ed9f
+tarn-zephyr-vetch-aspen-willow-cinder-larch  protocol/rapp-hive/2  sha256:a7ac42940a89382303ba7eff9a53ca1d14933aef242807ad11d79f9148208444
+ursa-hollow-glade-wren-ester-nettle-zeal  organization/one-person-conglomerate  sha256:5981cbaa49a17871c157370b94d88d6b136416cd9e5ffe77fbfe899f2d9cb9bc
+verge-jasper-hazel-mesa-zenith-umber-umber  organization/turnaround-firm  sha256:da4eb451de282886903d153c3a179c9313cc0add303325a8cd93684b8b187923
+willow-yield-ford-fenlark-beacon-marrow-quartz  organization/micro-manufacturing-company  sha256:8a7764997a0502288984dfdfba81f3422e6ad11fd90496c46b5680ff0adfd0a4
+zephyr-nettle-haven-wren-rushes-dell-trench  hive/rapp-hive  sha256:2ca17f2a25e2d834b76f6f02aca051a8ff1de1be5e3cbfd8e9f6d532d514f9f3

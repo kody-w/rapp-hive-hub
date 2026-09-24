@@ -1,197 +1,130 @@
 # RAPP Hive Hub
 
-**[Open RAPP Hive Hub](https://kody-w.github.io/rapp-hive-hub/hub/)** ·
-[Give your AI the skill](https://kody-w.github.io/rapp-hive-hub/hub/skills/hive-network/SKILL.md) ·
-[Static API](https://kody-w.github.io/rapp-hive-hub/api/hive-hub/v1/index.json)
+**`main` keeps the previous design; this branch is the target shape.** On `main`, RAPP Hive Hub
+is a static site and api v1 built by Node and Python scripts, with downloadable organization seed
+ZIPs, join cards and QR codes, boot Eggs with a SeedRunner organ, and the inherited Python core,
+CLI and adapters. Here it is a tree of markdown cards, twelve starter templates and one
+standard-library builder, and nothing else.
 
-The RAPP-focused version of [Hive Hub](https://github.com/kody-w/hive-hub):
-find a RAPP Work organization starter, verify its exact package and protocol,
-then plan native Organizations and Workspaces with the AI you already use.
+A hub is a tree of markdown cards, one fact per file, plus a builder that generates every view.
+Reorganizing the hub means moving card files. Nothing in a hub runs, and joining happens in your
+own Brainstem. This is the RAPP instance of the generic hub (`kody-w/hive-hub`): the same shape,
+with `tools/build.py` a byte-identical copy of its builder. Everything RAPP-specific lives in
+`HUB.md`, `cards/` and `starters/`.
 
-Twelve downloadable starters include the One-Person Conglomerate, Enterprise
-Transformation Firm, Product Launch Company, Open-Source Infrastructure
-Foundation, Applied Invention Lab, Independent Game Studio, Micro-Manufacturing
-Company, Public-Source Intelligence Bureau, Turnaround Firm, Federation
-Prime Contractor, AI Video Studio, and First-Party Rapplication Company. Each includes scoped
-teams, a synthetic case, original artifacts, dependency-linked tasks, a
-deterministic ZIP, a verified join card, an organism map (`ORGANISM.md`), and an
-inert folder-Hive template (`folder-hive/`, experimental).
-These are **starter packages, not running agents or activated companies**.
-
-The [First-Party Rapplication Company](https://kody-w.github.io/rapp-hive-hub/hub/seeds/first-party-rapplication-company/)
-adds seven teams, a configurable founder-CEO charter, a chat-operated checklist
-reference, and an evidence-gated internal-use-to-public-PR pipeline. Independent
-verification and a separate decision are required; only the owner merges.
-
-## Where this fits
-
-Read the RAPP/1 organism bottom to top:
-
-0. **RAPP/1**: bytes and identity (in force).
-1. **Estate**: an owner's signed registry and its protocol pins (in force).
-2. **Organization**: canonical `rapp-work/1`, with one accountable owner, one
-   world, one policy, one release scope and exactly one Hive (specified: no
-   estate has activated it yet, G16, and it cannot bind a folder Hive yet, G10).
-3. **Hive**: a `rapp-hive/1` Private Hive (in force, and the one Hive an
-   organization can hold today) or the Hive folder convention (experimental).
-4. **Your device**: your Hive copies, read-only references and private workspaces.
-5. **Brainstem**: the one surface you talk to (in force).
-6. **You**: you confirm every exact plan.
-
-This hub is RAPP Work starters plus discovery and join across Hives. It sits
-beside the stack as part of the Hive Mind (candidate) and decides nothing:
-transport carries, signatures decide. `rapp-hive/2` is frozen as a research
-record. Maps: [ECOSYSTEM.md](https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/ECOSYSTEM.md)
-and [CONSTITUTION.md](https://github.com/kody-w/rapp-work/blob/experimental/rapp-work-constitution/CONSTITUTION.md)
-in `kody-w/rapp-work` (branch `experimental/rapp-work-constitution`), and the
-[Hive folder convention](https://github.com/kody-w/rapp-model-hive/blob/experimental/hive-md/HIVE-MD.md)
-in `kody-w/rapp-model-hive` (branch `experimental/hive-md`).
-
-Each starter names the layers it touches in its `ORGANISM.md`: an Organization
-plan (specified), native team Workspaces (in force), a Hive, which today can
-only be a `rapp-hive/1` Private Hive that its owner creates separately, and, as
-an experimental option, the `folder-hive/` template. Download a ZIP (or read a
-seed folder) and it is a reference in its own shape: read it as data, and bring
-pieces into a Hive only by signed copy, stamped with `brought_from` and
-`brought_sha256`. A founder's Brainstem creates the Hive from the template with
-the Hive agent; nothing in the template runs. [Organization
-seeds](docs/ORGANIZATION_SEEDS.md) lists what maps cleanly for each starter and
-what does not.
-
-## Start with an outcome
-
-1. Open the [catalog](https://kody-w.github.io/rapp-hive-hub/hub/#organizations)
-   or give your existing AI the linked `hive-network` skill as material to
-   inspect. Tell it what you want to accomplish.
-2. Choose a seed. Verify the complete Dial Record ID, protocol fingerprint,
-   learning bundle, conformance contract, adapter, ZIP digest, and file inventory.
-3. Choose an owner label and a new local destination. Use the exact locally
-   trusted RAPP Work SDK to plan native setup.
-4. Review the complete bounded effects and exact plan hashes before applying.
-   Claim a ready task and attach real acceptance evidence.
-
-Reading a skill, downloading a seed, scanning a QR, or saving a local
-subscription never approves execution, initializes an organization, or grants
-source access. Browser-only AI clients can inspect but cannot claim local setup.
-
-### Or boot a seed in a RAPP Brainstem
-
-Every catalog seed also ships as a boot Egg: a RAPP/1 organism Egg holding the
-exact seed record, a soul written from it, and the generic SeedRunner organ
-(`seed-src/boot/rapp_seed_runner_agent.py`). A standard RAPP Brainstem hatches
-it and then runs the same seed flow with the same pinned SDK and approvals.
-
-1. Install the Brainstem: `curl -fsSL https://kody-w.github.io/rapp-installer/install.sh | bash`.
-2. From the seed's page, download its boot Egg and `hub/boot/hatch_seed.py`,
-   and check both SHA-256 values against the page and the seed index.
-3. `python3 hatch_seed.py --egg <slug>.boot.egg` verifies the Egg with the
-   pinned RAPP/1 reference and prints every effect, how to reverse it, and a
-   `plan_digest`. Nothing changes until you repeat the command with
-   `--apply <plan_digest>`, which gives the Brainstem its own instance RAPPID
-   (grown from the Egg) and imports SeedRunner with its SHA-256.
-4. Ask the Brainstem to run the seed. SeedRunner verifies the package, plans
-   the Organization and Workspaces, and shows an activation digest; nothing is
-   created until you approve that exact digest.
-
-Boot identities are minted once (`seed-src/boot/BOOT_PINS.json`), so builds
-pack byte-identical Eggs. A boot Egg grants no authority and runs nothing on its
-own.
-
-## RAPP by composition, not by rewriting the core
-
-| Layer | Contract |
-| --- | --- |
-| Product | RAPP-first catalog, native setup workflow, and AI skill |
-| Organization seeds | `rapp-work/1`, using the `rapp-work-sdk/1` workspace profile |
-| Folder-Hive templates | Hive folder convention, `kody-w/rapp-model-hive` at `2bd7c95152ede719b6418b80e2bdc2cd457bf711` (experimental, inert data) |
-| RAPP Work SDK | `kody-w/rapp-work` at `29ead23b21645f8d7682ee00414930ffa9ce0ca6` |
-| RAPP/1 | `kody-w/rapp-1` at `591e014ad39e223b00ab343ae26e5d9a867ebeee` |
-| Discovery | Unmodified protocol-neutral `hive_hub` core and `api/hive-hub/v1` wire format |
-| Existing adapters | RAPP delegation, RAPPID, Payphone, historical Hub, filesystem, and GitHub |
-
-The SDK and specification digests are included in each seed and the AI skill.
-Installed RAPP tooling remains the authority; the Hub does not recreate it.
-Organization state holds pointers to scoped team and casework Workspaces.
-No SDK is silently downloaded or executed, and no generic compatibility is inferred.
-
-This distribution retains the upstream laboratory as an explicitly labeled
-generic subscription example. Upstream content identities, exact source
-revisions, locked compatibility cards, historical receipts, and seed provenance
-are preserved; references to `hive-hub` in those objects are intentional.
-Current site indexes, join links, QR destinations, and the contribution workflow
-point to **this** repository and its Pages site.
-
-## Safety boundaries
-
-Chants, URLs, repositories, and QR codes are locators, not authority.
-Every Hive declares an exact protocol fingerprint, learning bundle,
-conformance contract, and adapter. Downloaded content stays inert until
-separately verified and approved.
-
-Existing source ACLs remain in charge. `acl-only` is the default; optional
-`acl+qr` is a second factor after ACL and contains no repository credentials
-or private keys. The Hub adds no collaborators or credentials. Unauthorized
-and nonexistent private targets are indistinguishable. Public builds read
-only the explicit pinned public manifest, never private dialbooks.
-
-## Build and contribute
-
-Requires Node.js 20.18+ and Python 3.10+ (`python3` on PATH).
-
-```bash
-npm ci --ignore-scripts
-npm run verify
-PYTHONPATH=src:. python3 -B -m unittest discover -s tests -t .
-python3 -B scripts/check_public_release.py
-npm run build:site
+```text
+HUB.md                      what this hub is, who curates it, how to submit a card, where it fits
+cards/protocols/<id>.md     one card per Hive protocol
+cards/hives/<slug>.md       one card per Hive
+cards/orgs/<slug>.md        one card per organization
+cards/starters/<slug>.md    one card per starter
+starters/<slug>/            a Hive template tree (HIVE.md, .gitattributes, shared/) plus README.md
+tools/build.py              standard library only; builds views/; --check compares
+views/                      GENERATED: api/v2/, site/ and chants.txt
+llms.txt                    a short entry for AI apps
+tests/                      the builder's tests and this hub's own
 ```
 
-Author public inputs and templates, not generated `hub/` or `api/` files.
-After changing a seed, the SeedRunner organ, or the hatcher, rebuild the boot
-documents first: `python3 -B scripts/seed_boot.py build` (a new catalog seed
-needs `python3 -B scripts/seed_boot.py pin` once). `python3 -B scripts/seed_boot.py prove`
-hatches every boot Egg into scratch roots with the pinned SDK and RAPP/1
-checkouts under `.hive-hub/deps/` and walks each seed to a live case board.
-After intentional source changes, run `npm run sync:release`, `npm run build`,
-and `python3 -B scripts/build_release_manifest.py`, then verify. Review generated
-changes and immutable receipts before committing.
+## The cards
 
-`python3 -B scripts/folder_hive.py --check` rebuilds every folder-Hive template
-twice and refuses drift or a broken file rule (`--slug <slug> --out <new folder>`
-writes one tree for inspection). A Dial Record commits to its exact package, so a
-package that gains files gets a successor record: `python3 -B scripts/seed_predecessors.py preserve`
-copies the earlier record, cards, declaration, seed document and ZIP byte for byte
-into `public-src/historical/` and pins them in `seed-src/SEED_PREDECESSORS.json`;
-they stay at their content addresses, outside the active dialbook, and receipt
-0005 records the step.
+| Card | Status |
+| --- | --- |
+| [`hive-md`](cards/protocols/hive-md.md): the Hive folder convention | experimental |
+| [`rapp-hive/1`](cards/protocols/rapp-hive/1.md): RAPP Private Hive | in force |
+| [`rapp-hive/2`](cards/protocols/rapp-hive/2.md): frozen research record | frozen |
+| [`contoso-model-hive`](cards/hives/contoso-model-hive.md): a synthetic model Hive with no live shared copy | experimental |
+| [`rapp-hive`](cards/hives/rapp-hive.md): the RAPP Hive, with no pins yet | planned |
+| Twelve [organization cards](cards/orgs/): each a RAPP Work organization plan | specified |
+| Twelve [starter cards](cards/starters/): each names its template under `starters/` | experimental |
 
-Pages serves the root of the separate `gh-pages` branch, containing only the
-verified `site/` artifact. The source lives on `main`. Rebuild and verify before
-publishing an updated artifact; never publish the repository root as the site.
-The artifact commit records its source commit and public hash-manifest digest.
+The protocol cards and the Contoso card are the same files as in the generic hub, and so are
+`tools/build.py`, `tests/test_build.py`, `.gitattributes` and the CI workflow.
 
-The existing publisher login can publish source and configure Pages but lacks
-GitHub's `workflow` scope. CI and automatic deployment definitions are therefore
-preserved under `.github/workflow-templates/`, **not active workflows**. To enable
-automation later, explicitly authorize workflow publication, move the templates
-to `.github/workflows/`, and switch the Pages build type from branch deployment
-to GitHub Actions. Until then, run the verification commands above before each
-manual publication.
+## The starters
 
-The Python module and CLI keep their upstream `hive_hub` / `hive-hub` names.
-This repository does **not** publish a competing Python package or publish
-upstream releases to PyPI. Inherited release documents describe the underlying
-Hive Hub implementation, not a new RAPP SDK release.
+Each starter is a Hive template for the Hive folder convention. `HIVE.md` holds 2 approvals, a
+`fields:` hint for the task shape and a `hive:` placeholder that the founder's Brainstem fills at
+create time. Each team is a room under `shared/<team>/` with one note per task (`id`, `title`,
+`status`, `depends_on`, and `[[id]]` links between dependencies); `shared/casework/` holds the
+charter, the first case and the starter files as notes in `artifacts/`. The README.md beside each
+template says where the starter fits, how to pull it down, how to create the Hive, and what does
+not map cleanly. It is documentation, never part of the Hive.
 
-## Provenance and deeper reference
+Three caveats apply to every starter: non-markdown starter files are fenced notes (their `file`
+and `sha256` name the exact file once copied out), task outputs are logical paths that a team adds
+as notes, and the planned world id has no folder-Hive counterpart.
 
-Based on public upstream commit
-[`1db94d2b1b5d9d4fb6f9d2865c3a2fe543875c31`](https://github.com/kody-w/hive-hub/commit/1db94d2b1b5d9d4fb6f9d2865c3a2fe543875c31).
-The MIT license and upstream history are retained. The generic repository is
-independent and unchanged.
+| Starter | Rooms | Also does not map cleanly |
+| --- | --- | --- |
+| [The AI Video Studio](starters/ai-video-studio/README.md) | 10 | three tools lose a Node shebang line |
+| [The Applied Invention Lab](starters/applied-invention-lab/README.md) | 6 | nothing |
+| [The Enterprise Transformation Firm](starters/enterprise-transformation-firm/README.md) | 7 | nothing |
+| [The Federation Prime Contractor](starters/federation-prime-contractor/README.md) | 6 | partner briefs need `rapp-federation/1` agreements (candidate) |
+| [The First-Party Rapplication Company](starters/first-party-rapplication-company/README.md) | 8 | nothing |
+| [The Independent Game Studio](starters/independent-game-studio/README.md) | 8 | nothing |
+| [The Micro-Manufacturing Company](starters/micro-manufacturing-company/README.md) | 8 | nothing |
+| [The One-Person Conglomerate](starters/one-person-conglomerate/README.md) | 11 | nothing |
+| [The Open-Source Infrastructure Foundation](starters/open-source-infrastructure-foundation/README.md) | 8 | one note is renamed `community-intake-2.md` to keep note names unique |
+| [The Product Launch Company](starters/product-launch-company/README.md) | 7 | nothing |
+| [The Public-Source Intelligence Bureau](starters/public-source-intelligence-bureau/README.md) | 6 | nothing |
+| [The Turnaround Firm](starters/turnaround-firm/README.md) | 6 | nothing |
 
-Inherited documentation remains useful for [organization seeds](docs/ORGANIZATION_SEEDS.md),
-[CLI commands](docs/CLI.md), [contracts](docs/CONTRACTS.md), and
-[security boundaries](docs/SECURITY.md). Its upstream URLs identify the original
-distribution; use this README and this site's `llms.txt` for RAPP Hive Hub entry
-points. See [AGENTS.md](AGENTS.md) for the engineering contract.
+## Build and check
+
+```bash
+python tools/build.py            # check every card and template, and write views/
+python tools/build.py --check    # rebuild in memory and compare with views/ byte for byte
+python -m unittest discover -s tests
+```
+
+Never edit `views/` by hand. CI (`.github/workflows/ci.yml`, the same workflow as the generic hub)
+runs the check and the tests on Linux, macOS and Windows with Python 3.12 and on Linux with Python
+3.11; publishing a workflow file needs the `workflow` scope. With a pinned copy of the convention's
+agent (`kody-w/rapp-model-hive` at `2bd7c95`, as `HIVE_MD_AGENT` or under
+`.hive-hub/deps/rapp-model-hive/`), the tests also run that agent's own file rules over every
+template file.
+
+## Card fields
+
+Each card is `---`, one `key: value` line per field, `---`, a blank line and a short body. The
+builder refuses unknown fields, missing pins, commit ids that are not full, bad key fingerprints,
+duplicate slugs, credentials in URLs and absolute paths.
+
+| Card | Fields |
+| --- | --- |
+| `card: protocol` | `id`, `name`, `status`, `spec` (a URL at a full commit id) and `spec_sha256`; optional `checker` and `checker_sha256`, `agent` and `agent_sha256` |
+| `card: hive` | `name`, `protocol`, `status`, `hive`, `root`, `founder`, `channel`; optional `public_copy`, `address` and `org`. A `planned` Hive may omit all three pins |
+| `card: organization` | `name`, `status`, `hive` (a hive slug or `template`); optional `starter` |
+| `card: starter` | `name`, `status`, `template` (`starters/<folder>/`), `org` |
+
+Statuses are `in force`, `specified`, `experimental`, `candidate`, `planned` and `frozen`;
+protocols do not use `planned`. A card's sha256 is the SHA-256 of its file, and its chant is seven
+words from the first seven bytes of that digest, over the frozen `hive-hub-chant/1` vocabulary. A
+chant is a locator, never authority; collisions are listed in `views/chants.txt`.
+
+## Join
+
+1. Dial a chant from `views/chants.txt`, or open a card.
+2. Check the card's sha256 against `views/api/v2/index.json`.
+3. Give the card to your Brainstem. Its Hive agent joins with the card's `address`, `hive`,
+   `root` and `founder`: it clones the Hive, verifies the root and the founder fingerprint, writes
+   one SSH-signed request file, and sends it the way the card's `channel` says.
+
+To start from a starter instead, pull `starters/<slug>/` down read-only (the Hive agent's
+`reference`, `npx degit` or a ZIP) and let your Brainstem's Hive agent create a new Hive from it,
+as its README says. The hub never writes into a Hive, keeps no subscription state and runs
+nothing.
+
+## Removed on this branch
+
+The generated api v1 and site (`api/`, `hub/`, `index.html`, `.well-known/`, `.nojekyll`), their
+public inputs and receipts (`public-src/`, `public-manifest.json`, `public-withdrawals.json`),
+the organization seed packages and ZIPs with their initialization plans and pins (`seed-src/`),
+join cards and QR codes, boot Eggs with the SeedRunner organ and hatcher, the inherited Python
+core, CLI, subscriptions, bootstrap and adapters (`src/`, `adapters/`, `pyproject.toml`,
+`MANIFEST.in`), the Node and Python build scripts (`scripts/`, `package.json`), the locked Agent
+Skill and the hive-network skill (`skills/`), the generic example, the old docs and tests, the
+release inventories, and the inactive workflow templates. The earlier additive fit on this branch
+(organism maps, templates inside seed packages and successor records) is superseded too. The
+twelve starters live on as `starters/`, and the frozen chant vocabulary lives on in
+`tools/build.py`.

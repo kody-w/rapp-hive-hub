@@ -1,0 +1,16 @@
+---
+file: data/quotes.csv
+sha256: 748728a14d183fa4f1a5178830b12e5a36042560e543d3256958e7efc0d25080
+---
+
+```
+classification,quote-id,account-id,requested-terms-days,shipping-usd,shipping-taxable,po-reference
+SYNTHETIC,q-101,ac-cedar,30,12.00,yes,synthetic-po-101
+SYNTHETIC,q-102,ac-birch,30,0.00,no,synthetic-po-102
+SYNTHETIC,q-103,ac-cedar,30,10.00,yes,synthetic-po-103
+SYNTHETIC,q-104,ac-elm,60,20.00,yes,synthetic-po-104
+SYNTHETIC,q-105,ac-cedar,30,0.00,no,
+SYNTHETIC,q-106,ac-maple,45,0.00,no,synthetic-po-106
+SYNTHETIC,q-107,ac-cedar,30,0.00,no,synthetic-po-107
+SYNTHETIC,q-108,ac-cedar,45,0.00,no,synthetic-po-108
+```

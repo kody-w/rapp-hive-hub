@@ -1,0 +1,15 @@
+{
+  "kind": "organization",
+  "slug": "federation-prime-contractor",
+  "path": "cards/orgs/federation-prime-contractor.md",
+  "sha256": "8018b3409348861c5d856bb589b17081b6d238768bc501203dc940422bf73787",
+  "chant": "ember-eddy-gorse-thorn-brindle-delta-lantern",
+  "frontmatter": {
+    "card": "organization",
+    "name": "The Federation Prime Contractor",
+    "status": "specified",
+    "hive": "template",
+    "starter": "federation-prime-contractor"
+  },
+  "body": "Coordinate candidate partner work through explicit artifacts, acceptance, and owner gates. Run a\nprime's own program, partner-discovery, integration, quality, and change-control teams around a\nsynthetic offline maker-hall intake engagement. Split proposed work among three discoverable\norganization seeds, integrate only local public-reference fixtures, and rehearse rejection and\nrework without activating a federation or claiming partner authority.\n\nSpecified, not active: canonical `rapp-work/1` would give this organization one accountable owner,\none world (planned id `demo-federation-prime-contractor`), one policy, one release scope and exactly\none Hive. No estate has activated `rapp-work/1` yet (G16), and it cannot bind a folder Hive yet\n(G10), so the organization starts from its starter template. The card grants nothing.\n"
+}

@@ -1,0 +1,15 @@
+{
+  "kind": "starter",
+  "slug": "federation-prime-contractor",
+  "path": "cards/starters/federation-prime-contractor.md",
+  "sha256": "d02ec1f9bbdc8d3b6aa9324fd68f752de6c12d82c3efcd8a10afb06051ac02ab",
+  "chant": "ledge-briar-upland-atlas-otter-xenia-sable",
+  "frontmatter": {
+    "card": "starter",
+    "name": "The Federation Prime Contractor starter",
+    "status": "experimental",
+    "template": "starters/federation-prime-contractor/",
+    "org": "federation-prime-contractor"
+  },
+  "body": "A Hive template for the Hive folder convention (`hive-md`, experimental): 5 team rooms and a\ncasework room, 11 tasks linked by their dependencies, the charter, the first case (Pocket Queue: a\n60-attendee maker-hall intake rehearsal) and 16 starter files. All data is synthetic, and nothing in\nit runs.\n\nPull it down read-only and let your Brainstem's Hive agent create a new Hive from it. Its README\nsays how, and what does not map cleanly.\n"
+}
